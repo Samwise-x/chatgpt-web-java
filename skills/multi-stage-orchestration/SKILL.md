@@ -8,9 +8,11 @@ description: Build coherent inspect→evaluate→act→verify stages. Use for mu
 **Domain:** orchestration · **Sections:** 72–78.
 
 ## Use this skill
+
 Build coherent inspect→evaluate→act→verify stages. Load only the selected skill and its co-located reference when composing workflows.
 
 ## Execution procedure
+
 1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
 2. Validate the requested target, account link, input and acceptance predicates before effects.
 3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
@@ -75,8 +77,10 @@ Build coherent inspect→evaluate→act→verify stages. Load only the selected 
 **Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ## Detailed reference
+
 Read [references/details.md](./references/details.md) for directly loadable input schemas, examples and failure criteria.
 
 ## Acceptance
+
 - Every numbered section has its own operating rule and independent negative case.
 - The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.

@@ -8,9 +8,11 @@ description: Control asynchronous concurrency and correlation of tool responses.
 **Domain:** orchestration · **Sections:** 51–57.
 
 ## Use this skill
+
 Control asynchronous concurrency and correlation of tool responses. Load only the selected skill and its co-located reference when composing workflows.
 
 ## Execution procedure
+
 1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
 2. Validate the requested target, account link, input and acceptance predicates before effects.
 3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
@@ -75,8 +77,10 @@ Control asynchronous concurrency and correlation of tool responses. Load only th
 **Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ## Detailed reference
+
 Read [references/details.md](./references/details.md) for directly loadable input schemas, examples and failure criteria.
 
 ## Acceptance
+
 - Every numbered section has its own operating rule and independent negative case.
 - The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.

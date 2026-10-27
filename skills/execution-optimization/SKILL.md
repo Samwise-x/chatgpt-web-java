@@ -8,9 +8,11 @@ description: Measure scheduling overhead and reduce redundant work. Use when req
 **Domain:** advanced-engineering; **Section identifiers:** 119–124.
 
 ## Scope and routing
+
 Measure scheduling overhead and reduce redundant work. Select on a request about these mechanisms, not unrelated registry exploration. Read the detailed co-located reference if the acceptance conditions are in scope.
 
 ## Execution procedure
+
 1. Discover exact available tool names and argument contracts using `ALL_TOOLS`.
 2. Validate authorization and user target independently of capability presence.
 3. Execute this skill's specific host recipe from [references/host-recipe.js](./references/host-recipe.js).
@@ -68,7 +70,9 @@ Measure scheduling overhead and reduce redundant work. Select on a request about
 **Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ## Detailed reference
+
 [Read the skill-local details](./references/details.md) through the installed skill-resource reader.
 
 ## Acceptance
+
 Run the matching per-skill fixture and its negative case; record result and preserve the fixed 158-section acceptance contract.
