@@ -15,7 +15,6 @@ Compose live GitHub and other available service tools without treating them as p
 
 1. Discover exact available tool names and argument contracts using `ALL_TOOLS`.
 2. Validate authorization and user target independently of capability presence.
-3. Execute this skill's specific host recipe from [references/host-recipe.js](./references/host-recipe.js).
 4. Normalize results with status, operation, source and correlation; verify persistent effects by independent read.
 5. Apply all section-specific success and negative conditions before completion.
 
