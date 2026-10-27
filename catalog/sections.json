@@ -1,0 +1,1266 @@
+[
+  {
+    "number": 1,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-environment",
+    "skillTitle": "JavaScript Execution Environment",
+    "title": "Runtime architecture and execution lifecycle"
+  },
+  {
+    "number": 2,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-environment",
+    "skillTitle": "JavaScript Execution Environment",
+    "title": "V8 execution environment"
+  },
+  {
+    "number": 3,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-environment",
+    "skillTitle": "JavaScript Execution Environment",
+    "title": "ECMAScript module semantics"
+  },
+  {
+    "number": 4,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-environment",
+    "skillTitle": "JavaScript Execution Environment",
+    "title": "Top-level await"
+  },
+  {
+    "number": 5,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-environment",
+    "skillTitle": "JavaScript Execution Environment",
+    "title": "Execution isolation"
+  },
+  {
+    "number": 6,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-environment",
+    "skillTitle": "JavaScript Execution Environment",
+    "title": "Invocation boundaries"
+  },
+  {
+    "number": 7,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-environment",
+    "skillTitle": "JavaScript Execution Environment",
+    "title": "Available global interfaces"
+  },
+  {
+    "number": 8,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-environment",
+    "skillTitle": "JavaScript Execution Environment",
+    "title": "Runtime capabilities and interface constraints"
+  },
+  {
+    "number": 9,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "programming-primitives",
+    "skillTitle": "JavaScript Programming Primitives",
+    "title": "Objects, arrays, maps, and sets"
+  },
+  {
+    "number": 10,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "programming-primitives",
+    "skillTitle": "JavaScript Programming Primitives",
+    "title": "Functions and closures"
+  },
+  {
+    "number": 11,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "programming-primitives",
+    "skillTitle": "JavaScript Programming Primitives",
+    "title": "Iteration, loops, and recursion"
+  },
+  {
+    "number": 12,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "programming-primitives",
+    "skillTitle": "JavaScript Programming Primitives",
+    "title": "Promises and asynchronous functions"
+  },
+  {
+    "number": 13,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "programming-primitives",
+    "skillTitle": "JavaScript Programming Primitives",
+    "title": "Error handling and exception propagation"
+  },
+  {
+    "number": 14,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "programming-primitives",
+    "skillTitle": "JavaScript Programming Primitives",
+    "title": "JSON serialization and deserialization"
+  },
+  {
+    "number": 15,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-lifecycle",
+    "skillTitle": "Execution Lifecycle & State",
+    "title": "Invocation initialization"
+  },
+  {
+    "number": 16,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-lifecycle",
+    "skillTitle": "Execution Lifecycle & State",
+    "title": "Temporary execution state"
+  },
+  {
+    "number": 17,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-lifecycle",
+    "skillTitle": "Execution Lifecycle & State",
+    "title": "Promise resolution and completion"
+  },
+  {
+    "number": 18,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-lifecycle",
+    "skillTitle": "Execution Lifecycle & State",
+    "title": "Persistent versus ephemeral operations"
+  },
+  {
+    "number": 19,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-lifecycle",
+    "skillTitle": "Execution Lifecycle & State",
+    "title": "Execution result emission"
+  },
+  {
+    "number": 20,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "execution-lifecycle",
+    "skillTitle": "Execution Lifecycle & State",
+    "title": "State transfer between invocations"
+  },
+  {
+    "number": 21,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "output-observability",
+    "skillTitle": "Runtime Output & Observability",
+    "title": "text() output"
+  },
+  {
+    "number": 22,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "output-observability",
+    "skillTitle": "Runtime Output & Observability",
+    "title": "image() output"
+  },
+  {
+    "number": 23,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "output-observability",
+    "skillTitle": "Runtime Output & Observability",
+    "title": "Structured result formatting"
+  },
+  {
+    "number": 24,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "output-observability",
+    "skillTitle": "Runtime Output & Observability",
+    "title": "Execution diagnostics"
+  },
+  {
+    "number": 25,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "output-observability",
+    "skillTitle": "Runtime Output & Observability",
+    "title": "Output reduction and selection"
+  },
+  {
+    "number": 26,
+    "domain": "runtime",
+    "domainTitle": "Runtime Fundamentals",
+    "skill": "output-observability",
+    "skillTitle": "Runtime Output & Observability",
+    "title": "Execution trace representation"
+  },
+  {
+    "number": 27,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-registry",
+    "skillTitle": "Tool Registry Architecture",
+    "title": "ALL_TOOLS structure"
+  },
+  {
+    "number": 28,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-registry",
+    "skillTitle": "Tool Registry Architecture",
+    "title": "Tool discovery and enumeration"
+  },
+  {
+    "number": 29,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-registry",
+    "skillTitle": "Tool Registry Architecture",
+    "title": "Tool namespaces"
+  },
+  {
+    "number": 30,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-registry",
+    "skillTitle": "Tool Registry Architecture",
+    "title": "Operation descriptions"
+  },
+  {
+    "number": 31,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-registry",
+    "skillTitle": "Tool Registry Architecture",
+    "title": "Capability inventory generation"
+  },
+  {
+    "number": 32,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-registry",
+    "skillTitle": "Tool Registry Architecture",
+    "title": "Registry-driven capability selection"
+  },
+  {
+    "number": 33,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "runtime-introspection",
+    "skillTitle": "Runtime Introspection",
+    "title": "Dynamic capability discovery"
+  },
+  {
+    "number": 34,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "runtime-introspection",
+    "skillTitle": "Runtime Introspection",
+    "title": "Tool metadata inspection"
+  },
+  {
+    "number": 35,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "runtime-introspection",
+    "skillTitle": "Runtime Introspection",
+    "title": "Operation signature discovery"
+  },
+  {
+    "number": 36,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "runtime-introspection",
+    "skillTitle": "Runtime Introspection",
+    "title": "Argument and schema interpretation"
+  },
+  {
+    "number": 37,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "runtime-introspection",
+    "skillTitle": "Runtime Introspection",
+    "title": "Live capability catalog construction"
+  },
+  {
+    "number": 38,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-invocation",
+    "skillTitle": "Tool Invocation Engineering",
+    "title": "The tools execution interface"
+  },
+  {
+    "number": 39,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-invocation",
+    "skillTitle": "Tool Invocation Engineering",
+    "title": "Typed operation invocation"
+  },
+  {
+    "number": 40,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-invocation",
+    "skillTitle": "Tool Invocation Engineering",
+    "title": "Argument preparation and validation"
+  },
+  {
+    "number": 41,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-invocation",
+    "skillTitle": "Tool Invocation Engineering",
+    "title": "Returned result structures"
+  },
+  {
+    "number": 42,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-invocation",
+    "skillTitle": "Tool Invocation Engineering",
+    "title": "Tool result normalization"
+  },
+  {
+    "number": 43,
+    "domain": "tool-interface",
+    "domainTitle": "Tool Interface & Discovery",
+    "skill": "tool-invocation",
+    "skillTitle": "Tool Invocation Engineering",
+    "title": "Authentication and authorization contracts"
+  },
+  {
+    "number": 44,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "cross-tool-orchestration",
+    "skillTitle": "Cross-Tool Orchestration",
+    "title": "Single-program multi-tool execution"
+  },
+  {
+    "number": 45,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "cross-tool-orchestration",
+    "skillTitle": "Cross-Tool Orchestration",
+    "title": "Service-independent orchestration"
+  },
+  {
+    "number": 46,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "cross-tool-orchestration",
+    "skillTitle": "Cross-Tool Orchestration",
+    "title": "Cross-tool data dependencies"
+  },
+  {
+    "number": 47,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "cross-tool-orchestration",
+    "skillTitle": "Cross-Tool Orchestration",
+    "title": "Coordinating heterogeneous response formats"
+  },
+  {
+    "number": 48,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "cross-tool-orchestration",
+    "skillTitle": "Cross-Tool Orchestration",
+    "title": "Fan-out / fan-in patterns"
+  },
+  {
+    "number": 49,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "cross-tool-orchestration",
+    "skillTitle": "Cross-Tool Orchestration",
+    "title": "Tool chaining"
+  },
+  {
+    "number": 50,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "cross-tool-orchestration",
+    "skillTitle": "Cross-Tool Orchestration",
+    "title": "Cross-service result aggregation"
+  },
+  {
+    "number": 51,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "parallel-execution",
+    "skillTitle": "Parallel Execution & Concurrency",
+    "title": "Promise.all()"
+  },
+  {
+    "number": 52,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "parallel-execution",
+    "skillTitle": "Parallel Execution & Concurrency",
+    "title": "Promise.allSettled()"
+  },
+  {
+    "number": 53,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "parallel-execution",
+    "skillTitle": "Parallel Execution & Concurrency",
+    "title": "Sequential versus concurrent execution"
+  },
+  {
+    "number": 54,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "parallel-execution",
+    "skillTitle": "Parallel Execution & Concurrency",
+    "title": "Bounded concurrency"
+  },
+  {
+    "number": 55,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "parallel-execution",
+    "skillTitle": "Parallel Execution & Concurrency",
+    "title": "Worker-pool implementations"
+  },
+  {
+    "number": 56,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "parallel-execution",
+    "skillTitle": "Parallel Execution & Concurrency",
+    "title": "Batch processing"
+  },
+  {
+    "number": 57,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "parallel-execution",
+    "skillTitle": "Parallel Execution & Concurrency",
+    "title": "Parallel result correlation"
+  },
+  {
+    "number": 58,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "conditional-workflows",
+    "skillTitle": "Conditional Workflows",
+    "title": "Conditional branching"
+  },
+  {
+    "number": 59,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "conditional-workflows",
+    "skillTitle": "Conditional Workflows",
+    "title": "Decision trees"
+  },
+  {
+    "number": 60,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "conditional-workflows",
+    "skillTitle": "Conditional Workflows",
+    "title": "State-dependent tool invocation"
+  },
+  {
+    "number": 61,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "conditional-workflows",
+    "skillTitle": "Conditional Workflows",
+    "title": "Policy-driven operation selection"
+  },
+  {
+    "number": 62,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "conditional-workflows",
+    "skillTitle": "Conditional Workflows",
+    "title": "Conditional remediation"
+  },
+  {
+    "number": 63,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "conditional-workflows",
+    "skillTitle": "Conditional Workflows",
+    "title": "Explicit acceptance predicates"
+  },
+  {
+    "number": 64,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "conditional-workflows",
+    "skillTitle": "Conditional Workflows",
+    "title": "Retry and recovery control flow"
+  },
+  {
+    "number": 65,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "execution-graphs",
+    "skillTitle": "Execution Graphs & Dependency Scheduling",
+    "title": "Directed acyclic graphs"
+  },
+  {
+    "number": 66,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "execution-graphs",
+    "skillTitle": "Execution Graphs & Dependency Scheduling",
+    "title": "Dependency resolution"
+  },
+  {
+    "number": 67,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "execution-graphs",
+    "skillTitle": "Execution Graphs & Dependency Scheduling",
+    "title": "Topological execution ordering"
+  },
+  {
+    "number": 68,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "execution-graphs",
+    "skillTitle": "Execution Graphs & Dependency Scheduling",
+    "title": "Concurrent independent graph nodes"
+  },
+  {
+    "number": 69,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "execution-graphs",
+    "skillTitle": "Execution Graphs & Dependency Scheduling",
+    "title": "Multi-stage execution pipelines"
+  },
+  {
+    "number": 70,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "execution-graphs",
+    "skillTitle": "Execution Graphs & Dependency Scheduling",
+    "title": "Workflow state transitions"
+  },
+  {
+    "number": 71,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "execution-graphs",
+    "skillTitle": "Execution Graphs & Dependency Scheduling",
+    "title": "Graph execution reporting"
+  },
+  {
+    "number": 72,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "multi-stage-orchestration",
+    "skillTitle": "Multi-Stage Orchestration",
+    "title": "Multi-service evidence collection"
+  },
+  {
+    "number": 73,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "multi-stage-orchestration",
+    "skillTitle": "Multi-Stage Orchestration",
+    "title": "Normalization pipelines"
+  },
+  {
+    "number": 74,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "multi-stage-orchestration",
+    "skillTitle": "Multi-Stage Orchestration",
+    "title": "Evaluation stages"
+  },
+  {
+    "number": 75,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "multi-stage-orchestration",
+    "skillTitle": "Multi-Stage Orchestration",
+    "title": "Operation-plan construction"
+  },
+  {
+    "number": 76,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "multi-stage-orchestration",
+    "skillTitle": "Multi-Stage Orchestration",
+    "title": "Execution phases"
+  },
+  {
+    "number": 77,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "multi-stage-orchestration",
+    "skillTitle": "Multi-Stage Orchestration",
+    "title": "Post-execution verification"
+  },
+  {
+    "number": 78,
+    "domain": "orchestration",
+    "domainTitle": "Orchestration & Execution",
+    "skill": "multi-stage-orchestration",
+    "skillTitle": "Multi-Stage Orchestration",
+    "title": "Result consolidation"
+  },
+  {
+    "number": 79,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "data-transformations",
+    "skillTitle": "Data Transformation Engine",
+    "title": "Filtering and mapping"
+  },
+  {
+    "number": 80,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "data-transformations",
+    "skillTitle": "Data Transformation Engine",
+    "title": "Reduction and aggregation"
+  },
+  {
+    "number": 81,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "data-transformations",
+    "skillTitle": "Data Transformation Engine",
+    "title": "Sorting and ranking"
+  },
+  {
+    "number": 82,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "data-transformations",
+    "skillTitle": "Data Transformation Engine",
+    "title": "Grouping and deduplication"
+  },
+  {
+    "number": 83,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "data-transformations",
+    "skillTitle": "Data Transformation Engine",
+    "title": "Cross-service joins"
+  },
+  {
+    "number": 84,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "data-transformations",
+    "skillTitle": "Data Transformation Engine",
+    "title": "Regular-expression extraction"
+  },
+  {
+    "number": 85,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "data-transformations",
+    "skillTitle": "Data Transformation Engine",
+    "title": "Structured data validation"
+  },
+  {
+    "number": 86,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "context-compression",
+    "skillTitle": "Context Compression Through Execution",
+    "title": "Tool-result reduction"
+  },
+  {
+    "number": 87,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "context-compression",
+    "skillTitle": "Context Compression Through Execution",
+    "title": "Pre-inference data processing"
+  },
+  {
+    "number": 88,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "context-compression",
+    "skillTitle": "Context Compression Through Execution",
+    "title": "Large response normalization"
+  },
+  {
+    "number": 89,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "context-compression",
+    "skillTitle": "Context Compression Through Execution",
+    "title": "Source evidence extraction"
+  },
+  {
+    "number": 90,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "context-compression",
+    "skillTitle": "Context Compression Through Execution",
+    "title": "Selective context emission"
+  },
+  {
+    "number": 91,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "context-compression",
+    "skillTitle": "Context Compression Through Execution",
+    "title": "Context-efficient orchestration"
+  },
+  {
+    "number": 92,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "context-compression",
+    "skillTitle": "Context Compression Through Execution",
+    "title": "Compact structured reporting"
+  },
+  {
+    "number": 93,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "evidence-provenance",
+    "skillTitle": "Evidence & Provenance Engineering",
+    "title": "Evidence record schemas"
+  },
+  {
+    "number": 94,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "evidence-provenance",
+    "skillTitle": "Evidence & Provenance Engineering",
+    "title": "Source identifiers"
+  },
+  {
+    "number": 95,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "evidence-provenance",
+    "skillTitle": "Evidence & Provenance Engineering",
+    "title": "Operation-to-result correlation"
+  },
+  {
+    "number": 96,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "evidence-provenance",
+    "skillTitle": "Evidence & Provenance Engineering",
+    "title": "Timestamped observations"
+  },
+  {
+    "number": 97,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "evidence-provenance",
+    "skillTitle": "Evidence & Provenance Engineering",
+    "title": "Reproducible evidence bundles"
+  },
+  {
+    "number": 98,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "evidence-provenance",
+    "skillTitle": "Evidence & Provenance Engineering",
+    "title": "Acceptance evidence"
+  },
+  {
+    "number": 99,
+    "domain": "data-context",
+    "domainTitle": "Data & Context Engineering",
+    "skill": "evidence-provenance",
+    "skillTitle": "Evidence & Provenance Engineering",
+    "title": "Evidence aggregation across services"
+  },
+  {
+    "number": 100,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "code-analysis",
+    "skillTitle": "Source Code Analysis",
+    "title": "Repository source retrieval"
+  },
+  {
+    "number": 101,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "code-analysis",
+    "skillTitle": "Source Code Analysis",
+    "title": "File classification"
+  },
+  {
+    "number": 102,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "code-analysis",
+    "skillTitle": "Source Code Analysis",
+    "title": "Symbol extraction"
+  },
+  {
+    "number": 103,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "code-analysis",
+    "skillTitle": "Source Code Analysis",
+    "title": "Import/export analysis"
+  },
+  {
+    "number": 104,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "code-analysis",
+    "skillTitle": "Source Code Analysis",
+    "title": "Dependency graph construction"
+  },
+  {
+    "number": 105,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "code-analysis",
+    "skillTitle": "Source Code Analysis",
+    "title": "AST-assisted analysis"
+  },
+  {
+    "number": 106,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "code-analysis",
+    "skillTitle": "Source Code Analysis",
+    "title": "Call-chain investigation"
+  },
+  {
+    "number": 107,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "testing-verification",
+    "skillTitle": "Automated Testing & Verification",
+    "title": "Test orchestration"
+  },
+  {
+    "number": 108,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "testing-verification",
+    "skillTitle": "Automated Testing & Verification",
+    "title": "Deterministic assertions"
+  },
+  {
+    "number": 109,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "testing-verification",
+    "skillTitle": "Automated Testing & Verification",
+    "title": "Multi-service acceptance tests"
+  },
+  {
+    "number": 110,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "testing-verification",
+    "skillTitle": "Automated Testing & Verification",
+    "title": "Result comparison"
+  },
+  {
+    "number": 111,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "testing-verification",
+    "skillTitle": "Automated Testing & Verification",
+    "title": "Regression evaluation"
+  },
+  {
+    "number": 112,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "testing-verification",
+    "skillTitle": "Automated Testing & Verification",
+    "title": "End-to-end evidence collection"
+  },
+  {
+    "number": 113,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "reliability-recovery",
+    "skillTitle": "Reliability & Execution Recovery",
+    "title": "Exception management"
+  },
+  {
+    "number": 114,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "reliability-recovery",
+    "skillTitle": "Reliability & Execution Recovery",
+    "title": "Partial execution handling"
+  },
+  {
+    "number": 115,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "reliability-recovery",
+    "skillTitle": "Reliability & Execution Recovery",
+    "title": "Retry strategies"
+  },
+  {
+    "number": 116,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "reliability-recovery",
+    "skillTitle": "Reliability & Execution Recovery",
+    "title": "Idempotent operations"
+  },
+  {
+    "number": 117,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "reliability-recovery",
+    "skillTitle": "Reliability & Execution Recovery",
+    "title": "Execution checkpoints"
+  },
+  {
+    "number": 118,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "reliability-recovery",
+    "skillTitle": "Reliability & Execution Recovery",
+    "title": "Recovery evidence"
+  },
+  {
+    "number": 119,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "execution-optimization",
+    "skillTitle": "Execution Optimization",
+    "title": "Tool-call batching"
+  },
+  {
+    "number": 120,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "execution-optimization",
+    "skillTitle": "Execution Optimization",
+    "title": "Concurrency optimization"
+  },
+  {
+    "number": 121,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "execution-optimization",
+    "skillTitle": "Execution Optimization",
+    "title": "Dependency-aware scheduling"
+  },
+  {
+    "number": 122,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "execution-optimization",
+    "skillTitle": "Execution Optimization",
+    "title": "Intermediate-result reduction"
+  },
+  {
+    "number": 123,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "execution-optimization",
+    "skillTitle": "Execution Optimization",
+    "title": "Repeated-operation elimination"
+  },
+  {
+    "number": 124,
+    "domain": "advanced-engineering",
+    "domainTitle": "Advanced Engineering",
+    "skill": "execution-optimization",
+    "skillTitle": "Execution Optimization",
+    "title": "Execution efficiency measurement"
+  },
+  {
+    "number": 125,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "agentic-execution",
+    "skillTitle": "Agentic Execution Architecture",
+    "title": "Model reasoning versus program execution"
+  },
+  {
+    "number": 126,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "agentic-execution",
+    "skillTitle": "Agentic Execution Architecture",
+    "title": "Ephemeral execution substrates"
+  },
+  {
+    "number": 127,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "agentic-execution",
+    "skillTitle": "Agentic Execution Architecture",
+    "title": "Deterministic execution delegation"
+  },
+  {
+    "number": 128,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "agentic-execution",
+    "skillTitle": "Agentic Execution Architecture",
+    "title": "Tool-mediated agent actions"
+  },
+  {
+    "number": 129,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "agentic-execution",
+    "skillTitle": "Agentic Execution Architecture",
+    "title": "External state ownership"
+  },
+  {
+    "number": 130,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "agentic-execution",
+    "skillTitle": "Agentic Execution Architecture",
+    "title": "Agentic workflow composition"
+  },
+  {
+    "number": 131,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "coordination-governance",
+    "skillTitle": "Agent Coordination & Governance",
+    "title": "Capability inventories"
+  },
+  {
+    "number": 132,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "coordination-governance",
+    "skillTitle": "Agent Coordination & Governance",
+    "title": "Operation eligibility"
+  },
+  {
+    "number": 133,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "coordination-governance",
+    "skillTitle": "Agent Coordination & Governance",
+    "title": "Authorization-aware execution"
+  },
+  {
+    "number": 134,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "coordination-governance",
+    "skillTitle": "Agent Coordination & Governance",
+    "title": "Policy gates"
+  },
+  {
+    "number": 135,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "coordination-governance",
+    "skillTitle": "Agent Coordination & Governance",
+    "title": "Evidence-driven decisions"
+  },
+  {
+    "number": 136,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "coordination-governance",
+    "skillTitle": "Agent Coordination & Governance",
+    "title": "Controlled capability promotion"
+  },
+  {
+    "number": 137,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "self-correcting-loops",
+    "skillTitle": "Self-Correcting Execution Loops",
+    "title": "Observe–evaluate–act–verify cycles"
+  },
+  {
+    "number": 138,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "self-correcting-loops",
+    "skillTitle": "Self-Correcting Execution Loops",
+    "title": "Acceptance-driven iteration"
+  },
+  {
+    "number": 139,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "self-correcting-loops",
+    "skillTitle": "Self-Correcting Execution Loops",
+    "title": "Diagnostic feedback processing"
+  },
+  {
+    "number": 140,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "self-correcting-loops",
+    "skillTitle": "Self-Correcting Execution Loops",
+    "title": "Automated corrective actions"
+  },
+  {
+    "number": 141,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "self-correcting-loops",
+    "skillTitle": "Self-Correcting Execution Loops",
+    "title": "Repeated acceptance testing"
+  },
+  {
+    "number": 142,
+    "domain": "agentic-systems",
+    "domainTitle": "Agentic Systems",
+    "skill": "self-correcting-loops",
+    "skillTitle": "Self-Correcting Execution Loops",
+    "title": "Completion criteria"
+  },
+  {
+    "number": 143,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "cross-service-runbooks",
+    "skillTitle": "Cross-Service Orchestration Runbooks",
+    "title": "GitHub repository inspection"
+  },
+  {
+    "number": 144,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "cross-service-runbooks",
+    "skillTitle": "Cross-Service Orchestration Runbooks",
+    "title": "GitHub Actions workflow evaluation"
+  },
+  {
+    "number": 145,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "cross-service-runbooks",
+    "skillTitle": "Cross-Service Orchestration Runbooks",
+    "title": "GitHub + documentation analysis"
+  },
+  {
+    "number": 146,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "cross-service-runbooks",
+    "skillTitle": "Cross-Service Orchestration Runbooks",
+    "title": "GitHub + Neon reconciliation"
+  },
+  {
+    "number": 147,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "cross-service-runbooks",
+    "skillTitle": "Cross-Service Orchestration Runbooks",
+    "title": "GitHub + Supabase integration"
+  },
+  {
+    "number": 148,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "cross-service-runbooks",
+    "skillTitle": "Cross-Service Orchestration Runbooks",
+    "title": "GitHub + Vercel deployment coordination"
+  },
+  {
+    "number": 149,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "cross-service-runbooks",
+    "skillTitle": "Cross-Service Orchestration Runbooks",
+    "title": "GitHub + Render deployment inspection"
+  },
+  {
+    "number": 150,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "cross-service-runbooks",
+    "skillTitle": "Cross-Service Orchestration Runbooks",
+    "title": "Multi-provider infrastructure inventory"
+  },
+  {
+    "number": 151,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "complete-execution-patterns",
+    "skillTitle": "Complete Execution Patterns",
+    "title": "Single-tool execution"
+  },
+  {
+    "number": 152,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "complete-execution-patterns",
+    "skillTitle": "Complete Execution Patterns",
+    "title": "Parallel evidence collection"
+  },
+  {
+    "number": 153,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "complete-execution-patterns",
+    "skillTitle": "Complete Execution Patterns",
+    "title": "Conditional cross-tool execution"
+  },
+  {
+    "number": 154,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "complete-execution-patterns",
+    "skillTitle": "Complete Execution Patterns",
+    "title": "Dependency-aware workflow"
+  },
+  {
+    "number": 155,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "complete-execution-patterns",
+    "skillTitle": "Complete Execution Patterns",
+    "title": "Cross-service reconciliation"
+  },
+  {
+    "number": 156,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "complete-execution-patterns",
+    "skillTitle": "Complete Execution Patterns",
+    "title": "Automated verification loop"
+  },
+  {
+    "number": 157,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "complete-execution-patterns",
+    "skillTitle": "Complete Execution Patterns",
+    "title": "Evidence-producing execution pipeline"
+  },
+  {
+    "number": 158,
+    "domain": "runbooks",
+    "domainTitle": "Operational Runbooks",
+    "skill": "complete-execution-patterns",
+    "skillTitle": "Complete Execution Patterns",
+    "title": "Comprehensive orchestration example"
+  }
+]

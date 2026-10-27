@@ -1,0 +1,170 @@
+[
+  {
+    "slug": "execution-environment",
+    "title": "JavaScript Execution Environment",
+    "domain": "runtime",
+    "description": "Investigate V8 runtime semantics, isolate behavior, and invocation limits.",
+    "sections": 8
+  },
+  {
+    "slug": "programming-primitives",
+    "title": "JavaScript Programming Primitives",
+    "domain": "runtime",
+    "description": "Select language constructs for orchestration without a surrounding Node.js process.",
+    "sections": 6
+  },
+  {
+    "slug": "execution-lifecycle",
+    "title": "Execution Lifecycle & State",
+    "domain": "runtime",
+    "description": "Track what survives one invocation and where external state belongs.",
+    "sections": 6
+  },
+  {
+    "slug": "output-observability",
+    "title": "Runtime Output & Observability",
+    "domain": "runtime",
+    "description": "Emit compact evidence and human-readable diagnostics.",
+    "sections": 6
+  },
+  {
+    "slug": "tool-registry",
+    "title": "Tool Registry Architecture",
+    "domain": "tool-interface",
+    "description": "Enumerate and classify tools from live advertised metadata.",
+    "sections": 6
+  },
+  {
+    "slug": "runtime-introspection",
+    "title": "Runtime Introspection",
+    "domain": "tool-interface",
+    "description": "Inspect declared tool contracts before constructing requests.",
+    "sections": 5
+  },
+  {
+    "slug": "tool-invocation",
+    "title": "Tool Invocation Engineering",
+    "domain": "tool-interface",
+    "description": "Prepare authorized arguments, call tools, and normalize results.",
+    "sections": 6
+  },
+  {
+    "slug": "cross-tool-orchestration",
+    "title": "Cross-Tool Orchestration",
+    "domain": "orchestration",
+    "description": "Fan out to different tools and join results into a typed evidence bundle.",
+    "sections": 7
+  },
+  {
+    "slug": "parallel-execution",
+    "title": "Parallel Execution & Concurrency",
+    "domain": "orchestration",
+    "description": "Control asynchronous concurrency and correlation of tool responses.",
+    "sections": 7
+  },
+  {
+    "slug": "conditional-workflows",
+    "title": "Conditional Workflows",
+    "domain": "orchestration",
+    "description": "Drive tool calls by evidence-based conditions and gates.",
+    "sections": 7
+  },
+  {
+    "slug": "execution-graphs",
+    "title": "Execution Graphs & Dependency Scheduling",
+    "domain": "orchestration",
+    "description": "Validate and execute DAGs with observable dependency ordering.",
+    "sections": 7
+  },
+  {
+    "slug": "multi-stage-orchestration",
+    "title": "Multi-Stage Orchestration",
+    "domain": "orchestration",
+    "description": "Build coherent inspect→evaluate→act→verify stages.",
+    "sections": 7
+  },
+  {
+    "slug": "data-transformations",
+    "title": "Data Transformation Engine",
+    "domain": "data-context",
+    "description": "Normalize provider records into stable, comparable structures.",
+    "sections": 7
+  },
+  {
+    "slug": "context-compression",
+    "title": "Context Compression Through Execution",
+    "domain": "data-context",
+    "description": "Reduce tool output before emitting it into model context.",
+    "sections": 7
+  },
+  {
+    "slug": "evidence-provenance",
+    "title": "Evidence & Provenance Engineering",
+    "domain": "data-context",
+    "description": "Attach tool identity and origin to any claimed observation.",
+    "sections": 7
+  },
+  {
+    "slug": "code-analysis",
+    "title": "Source Code Analysis",
+    "domain": "advanced-engineering",
+    "description": "Analyze retrieved code and reconstruct import and call relationships.",
+    "sections": 7
+  },
+  {
+    "slug": "testing-verification",
+    "title": "Automated Testing & Verification",
+    "domain": "advanced-engineering",
+    "description": "Check contracts at public seams using positive and negative fixtures.",
+    "sections": 6
+  },
+  {
+    "slug": "reliability-recovery",
+    "title": "Reliability & Execution Recovery",
+    "domain": "advanced-engineering",
+    "description": "Preserve partial results and resume controlled operations without silent promotion.",
+    "sections": 6
+  },
+  {
+    "slug": "execution-optimization",
+    "title": "Execution Optimization",
+    "domain": "advanced-engineering",
+    "description": "Measure scheduling overhead and reduce redundant work.",
+    "sections": 6
+  },
+  {
+    "slug": "agentic-execution",
+    "title": "Agentic Execution Architecture",
+    "domain": "agentic-systems",
+    "description": "Separate model judgment from deterministic orchestration code.",
+    "sections": 6
+  },
+  {
+    "slug": "coordination-governance",
+    "title": "Agent Coordination & Governance",
+    "domain": "agentic-systems",
+    "description": "Apply policy gates to tool eligibility and evidence admission.",
+    "sections": 6
+  },
+  {
+    "slug": "self-correcting-loops",
+    "title": "Self-Correcting Execution Loops",
+    "domain": "agentic-systems",
+    "description": "Iterate from observations to corrective operations until checks pass.",
+    "sections": 6
+  },
+  {
+    "slug": "cross-service-runbooks",
+    "title": "Cross-Service Orchestration Runbooks",
+    "domain": "runbooks",
+    "description": "Compose live GitHub and other available service tools without treating them as permanent dependencies.",
+    "sections": 8
+  },
+  {
+    "slug": "complete-execution-patterns",
+    "title": "Complete Execution Patterns",
+    "domain": "runbooks",
+    "description": "Run complete demonstrable samples with synthetic and optionally live adapters.",
+    "sections": 8
+  }
+]
