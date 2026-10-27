@@ -15,7 +15,6 @@ Select language constructs for orchestration without a surrounding Node.js proce
 
 1. Enumerate relevant live operation names and inspect complete tool contracts in `ALL_TOOLS`.
 2. Validate account selection, caller scope, input IDs and preconditions before tool invocation.
-3. Follow the specific mechanism below and the executable host recipe in [references/host-recipe.js](./references/host-recipe.js).
 4. Await all required results, evaluate the negative conditions and emit an evidence-backed result with `text()`.
 
 ## Section-specific operating rules
@@ -75,5 +74,4 @@ Read [references/details.md](./references/details.md) for this skill's input sch
 ## Acceptance
 
 - Every numbered section has an individual mechanism and negative condition.
-- Execute the specific host recipe with an injected connector adapter in CI; inspect the real contract for live runs.
 - Record actual returned provider/source data when a live tool runs; synthetic mock outcomes remain labeled as fixtures.
