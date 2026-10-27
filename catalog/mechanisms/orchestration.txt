@@ -1,0 +1,35 @@
+44|Coordinate several authorized tool calls in one JavaScript execution, combining their receipts into one correlated report.|The model must not invent intermediate results that the program did not observe.
+45|Pass injectable operation functions behind a shared result representation to avoid provider-specific logic in scheduling decisions.|A provider's private response key must not be hard-coded into the policy predicate.
+46|Await upstream resource discovery before passing its returned ID into a dependent operation, retaining the original observation reference.|A dependent call launched with a guessed ID is invalid.
+47|Normalize heterogeneous provider envelopes before joining records by explicit source and correlation IDs.|A source with no stable identifier cannot be silently merged.
+48|Launch independent queries together, await all settled results and aggregate by request ID rather than response completion order.|One failed service must not erase successful peer observations.
+49|Compose dependent tool operations with explicit input-output contracts and verification for every non-idempotent stage.|A chain may not silently substitute an invented intermediate resource.
+50|Join normalized GitHub, database and deployment records only on declared unique keys, reporting unmatched entries as partial.|Duplicate correlation keys cannot overwrite each other.
+51|Use Promise.all only where fail-fast control flow is intended, understanding that already started peers are not cancelled.|A rejection does not prove all siblings stopped.
+52|Use Promise.allSettled to retain fulfilled and rejected entries with their original input indices.|Completion order must not be confused with index ordering.
+53|Compare sequential and concurrent strategies using the same workload and acceptance predicate before interpreting timing differences.|A faster path with missing results fails equivalence.
+54|Limit concurrency to a positive integer number of active workers; record peak simultaneous jobs in tests.|Zero or negative concurrency must reject before dispatch.
+55|Assign work through a monotonic shared cursor and write results to stable indices, including error outcomes.|Concurrent workers must not consume an item twice.
+56|Partition workloads into bounded chunks, process every final partial batch and preserve failed IDs for explicit retry.|The last incomplete chunk must not be dropped.
+57|Carry each operation ID alongside Promise settlement and reconcile all outcomes with the original request order.|A result without its request ID is untraceable.
+58|Branch on explicit observed fields and include a path for rejected or missing values.|Undefined must not imply consent to mutate state.
+59|Use an exhaustive state-to-action decision table whose default rejects unknown states.|Unexpected provider statuses must not trigger a successful branch.
+60|A conditional write must check current state and permission predicate, then re-read the resulting resource.|A stale precondition cannot justify an unconditional write.
+61|Evaluate a pure eligibility predicate over authorized scope and normalized observations before selecting an operation.|Available tooling alone is not permission.
+62|Select the smallest corrective action based on actual failed postconditions, retaining the original failure evidence.|A proposed correction is not proof it executed successfully.
+63|Evaluate a nonempty set of boolean acceptance predicates; reject untyped truthy values and every explicit false.|An empty acceptance object is not success.
+64|Classify retryable failures by provider semantics, bound attempt count and require idempotency for repeated writes.|A retry must not replay a non-idempotent operation blindly.
+65|Specify each DAG node with a unique ID, list of predecessor IDs and an executable function before constructing any frontier.|Duplicate node IDs must fail before execution.
+66|Validate all edges exist and traverse visiting/visited sets to detect cycles and self-dependencies.|A missing dependency or A→B→A cycle cannot launch jobs.
+67|Select ready nodes only after all their predecessors fulfilled their contracts, recording scheduling order distinctly from completion order.|A child must not run before its dependencies settle.
+68|Launch independent ready nodes concurrently and await the entire frontier so successful siblings are preserved on another failure.|Fail-fast Promise.all must not hide in-flight sibling effects.
+69|Build an explicit progression through validation, observation, planning, dispatch and postcondition verification phases.|A pipeline skipping its verification phase cannot claim acceptance.
+70|Record every workflow transition as origin state, event, destination state and source evidence ID.|Unknown transitions cannot advance a state machine.
+71|Return success and failure results keyed by node ID, including completed siblings and structured rejected reasons.|One exception cannot erase already committed sibling outcomes.
+72|Collect separate observations from every selected service with provider, operation, source and request correlation.|An unavailable provider must be represented as failure, not empty success.
+73|Normalize provider results to a common schema with validated statuses before computing cross-source policy.|Different JSON field names cannot be treated as equivalent without mapping.
+74|Apply all policy predicates to one observed snapshot and prevent plan creation when required evidence is missing.|Partial evidence must not silently qualify a resource for promotion.
+75|Represent the execution plan as actions with target, precondition, expected effect and verification method.|Do not report a planned step as an executed step.
+76|Execute independent approved operations in parallel but await settled results before advancing dependent phases.|The next phase must not start while predecessor writes remain unresolved.
+77|After any write, make an independent read to compare observed state against expected postcondition; retain both source references.|A write receipt is not itself a verified resulting state.
+78|Consolidate all stage outcomes and partial failures into a complete provenance-bearing bundle with an executable final predicate.|A summary omitting rejected stages is not reproducible.
