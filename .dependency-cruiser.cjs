@@ -5,7 +5,7 @@ module.exports = {
       name: "entry-point-only",
       severity: "error",
       from: { path: "^src/packages/([^/]+)/", pathNot: "^src/packages/([^/]+)/(?:lib|tests)/" },
-      to: { path: "^src/packages/([^/]+)/(?:lib|tests)/" }
+      to: { path: "^src/packages/[^/]+/(?:lib|tests)/", pathNot: "^src/packages/$1/" }
     },
     {
       name: "tests-through-entrypoints",
