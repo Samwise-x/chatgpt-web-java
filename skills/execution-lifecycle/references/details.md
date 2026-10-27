@@ -51,4 +51,5 @@ The primary interface is the current ChatGPT host tool registry; `tools` is the 
 **Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ## Runbook
+
 Inspect registry → validate arguments → await exact operation → normalize observed response → evaluate section-specific assertion → emit output. Remote side effects must be verified with a fresh provider read.

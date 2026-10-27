@@ -8,9 +8,11 @@ description: Fan out to different tools and join results into a typed evidence b
 **Domain:** orchestration · **Sections:** 44–50.
 
 ## Use this skill
+
 Fan out to different tools and join results into a typed evidence bundle. When another skill needs this behavior, load only this skill and its co-located references.
 
 ## Execution procedure
+
 1. Enumerate relevant live operation names and inspect complete tool contracts in `ALL_TOOLS`.
 2. Validate account selection, caller scope, input IDs and preconditions before tool invocation.
 3. Follow the specific mechanism below and the executable host recipe in [references/host-recipe.js](./references/host-recipe.js).
@@ -75,9 +77,11 @@ Fan out to different tools and join results into a typed evidence bundle. When a
 **Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ## Detailed reference
+
 Read [references/details.md](./references/details.md) for this skill's input schema, section-by-section proof requirements, and host/tool integration contract.
 
 ## Acceptance
+
 - Every numbered section has an individual mechanism and negative condition.
 - Execute the specific host recipe with an injected connector adapter in CI; inspect the real contract for live runs.
 - Record actual returned provider/source data when a live tool runs; synthetic mock outcomes remain labeled as fixtures.

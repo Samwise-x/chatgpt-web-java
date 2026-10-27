@@ -59,4 +59,5 @@ Scope is the isolated V8 JavaScript runtime coordinating registered tools. Host 
 **Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ## Execution evidence
+
 Capture requested input and selected operation, allSettled status if applicable, observed source, correlation ID, negative-case assertion and acceptance outcome. Do not substitute a synthetic fixture for live service evidence.
