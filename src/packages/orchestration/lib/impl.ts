@@ -15,6 +15,9 @@ export type Observation = {
   source: string;
   status: string;
   value: unknown;
+  observedAt?: string;
+  correlationId?: string;
+  origin?: "live" | "synthetic";
 };
 
 export function selectTool(
@@ -128,6 +131,9 @@ export function normalizeObservation(input: {
   source: string;
   status: string;
   value: unknown;
+  observedAt?: string;
+  correlationId?: string;
+  origin?: "live" | "synthetic";
 }): Observation {
   for (const field of [
     "id",
@@ -140,6 +146,9 @@ export function normalizeObservation(input: {
       throw new Error("Invalid observation field: " + field);
   }
   if (!["fulfilled", "rejected", "pending", "partial", "skipped"].includes(input.status)) throw new Error("Invalid observation status: " + input.status);
+  if (input.observedAt && Number.isNaN(Date.parse(input.observedAt))) throw new Error("Invalid observation timestamp");
+  if (input.origin && !["live", "synthetic"].includes(input.origin)) throw new Error("Invalid provenance origin");
+  if (input.correlationId !== undefined && !input.correlationId.trim()) throw new Error("Invalid correlation ID");
   return {
     id: input.id,
     provider: input.provider,
@@ -147,6 +156,9 @@ export function normalizeObservation(input: {
     source: input.source,
     status: input.status,
     value: input.value,
+    observedAt: input.observedAt ?? new Date().toISOString(),
+    correlationId: input.correlationId ?? input.id,
+    origin: input.origin ?? "synthetic",
   };
 }
 

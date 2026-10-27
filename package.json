@@ -10,7 +10,7 @@
     "build": "tsc -p tsconfig.json",
     "format:check": "prettier --check \"**/*.{md,json,js,mjs,ts,yml,yaml}\"",
     "format": "prettier --write \"**/*.{md,json,js,mjs,ts,yml,yaml}\"",
-    "lint": "eslint \"tests/**/*.mjs\" \"examples/**/*.mjs\" \"scripts/**/*.mjs\"",
+    "lint": "eslint \"src/**/*.ts\" \"tests/**/*.mjs\" \"examples/**/*.mjs\" \"scripts/**/*.mjs\"",
     "lint:boundaries": "depcruise src/packages --config .dependency-cruiser.cjs --output-type err",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "npm run build && node --test tests/*.test.mjs",
@@ -26,6 +26,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "@typescript-eslint/parser": "^8.46.1"
   }
 }

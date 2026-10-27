@@ -176,3 +176,11 @@ test("gates and reconciliation produce executable decisions", () => {
     { create: ["b"], update: [], unchanged: ["a"] }
   );
 });
+
+test("correlated evidence includes timestamp, origin and correlation", () => {
+  const item = normalizeObservation({ id:"e", provider:"github", operation:"get_repo", source:"github://repo", status:"fulfilled", value:{}, origin:"live", correlationId:"request-42", observedAt:"2026-10-27T00:00:00.000Z" });
+  assert.equal(item.origin,"live");
+  assert.equal(item.correlationId,"request-42");
+  assert.equal(item.observedAt,"2026-10-27T00:00:00.000Z");
+  assert.throws(()=>normalizeObservation({id:"e",provider:"x",operation:"y",source:"z",status:"fulfilled",value:null,observedAt:"not-a-date"}),/timestamp/);
+});
