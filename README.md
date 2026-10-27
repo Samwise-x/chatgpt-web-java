@@ -31,4 +31,5 @@ Install the root `plugin.json` package. Select skills by their frontmatter descr
 Every specialized skill has an associated mechanics walkthrough, host-runtime recipe, and use case in [the advanced field manual](references/advanced-field-manual.md).
 
 ## Release integrity
+
 The ZIP contains compiled `dist/`, Node examples, tests, and build/release scripts. CI extracts and smoke-tests the release, not just the source checkout.
