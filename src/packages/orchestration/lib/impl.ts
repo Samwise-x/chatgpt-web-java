@@ -5,9 +5,6 @@ export type GraphNode<T> = {
   needs: string[];
   run: (values: ReadonlyMap<string, T>) => Promise<T> | T;
 };
-export type SettledItem<T> =
-  | { id: string; status: "fulfilled"; value: T }
-  | { id: string; status: "rejected"; reason: string };
 export type Observation = {
   id: string;
   provider: string;
@@ -28,43 +25,6 @@ export function selectTool(
   if (matches.length !== 1)
     throw new Error("Tool must be present exactly once: " + name);
   return matches[0];
-}
-
-export async function parallelMap<A, B>(
-  items: readonly A[],
-  concurrency: number,
-  worker: (item: A, index: number) => Promise<B>
-): Promise<B[]> {
-  if (!Number.isInteger(concurrency) || concurrency < 1)
-    throw new Error("Positive integer concurrency required");
-  const results = new Array<B>(items.length);
-  let cursor = 0;
-  await Promise.all(
-    Array.from({ length: Math.min(concurrency, items.length) }, async () => {
-      while (cursor < items.length) {
-        const index = cursor++;
-        results[index] = await worker(items[index], index);
-      }
-    })
-  );
-  return results;
-}
-
-export async function settleById<T>(
-  items: readonly { id: string; run: () => Promise<T> }[]
-): Promise<SettledItem<T>[]> {
-  if (new Set(items.map((item) => item.id)).size !== items.length)
-    throw new Error("Duplicate operation ID");
-  const outcomes = await Promise.allSettled(items.map((item) => item.run()));
-  return outcomes.map((outcome, index) =>
-    outcome.status === "fulfilled"
-      ? { id: items[index].id, status: "fulfilled", value: outcome.value }
-      : {
-          id: items[index].id,
-          status: "rejected",
-          reason: String(outcome.reason),
-        }
-  );
 }
 
 export async function executeGraph<T>(
@@ -124,52 +84,6 @@ export async function executeGraph<T>(
     }
   }
   return result;
-}
-
-export function normalizeObservation(input: {
-  id: string;
-  provider: string;
-  operation: string;
-  source: string;
-  status: string;
-  value: unknown;
-  observedAt?: string;
-  correlationId?: string;
-  origin?: "live" | "synthetic";
-}): Observation {
-  for (const field of [
-    "id",
-    "provider",
-    "operation",
-    "source",
-    "status",
-  ] as const) {
-    if (!input[field] || typeof input[field] !== "string")
-      throw new Error("Invalid observation field: " + field);
-  }
-  if (
-    !["fulfilled", "rejected", "pending", "partial", "skipped"].includes(
-      input.status
-    )
-  )
-    throw new Error("Invalid observation status: " + input.status);
-  if (input.observedAt && Number.isNaN(Date.parse(input.observedAt)))
-    throw new Error("Invalid observation timestamp");
-  if (input.origin && !["live", "synthetic"].includes(input.origin))
-    throw new Error("Invalid provenance origin");
-  if (input.correlationId !== undefined && !input.correlationId.trim())
-    throw new Error("Invalid correlation ID");
-  return {
-    id: input.id,
-    provider: input.provider,
-    operation: input.operation,
-    source: input.source,
-    status: input.status,
-    value: input.value,
-    observedAt: input.observedAt ?? new Date().toISOString(),
-    correlationId: input.correlationId ?? input.id,
-    origin: input.origin ?? "synthetic",
-  };
 }
 
 export function reduceEvidence(records: readonly Observation[]): {
