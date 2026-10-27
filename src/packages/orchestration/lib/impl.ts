@@ -95,14 +95,27 @@ export async function executeGraph<T>(
         remaining.has(node.id) && node.needs.every((id) => result.has(id))
     );
     if (!ready.length) throw new Error("Graph has no ready nodes");
-    const batch = await Promise.all(
-      ready.map(
-        async (node) => [node.id, await node.run(new Map(result))] as const
-      )
+    const settled = await Promise.allSettled(
+      ready.map((node) => Promise.resolve().then(() => node.run(new Map(result))))
     );
-    for (const [id, value] of batch) {
-      result.set(id, value);
-      remaining.delete(id);
+    const failures: { id: string; reason: unknown }[] = [];
+    for (let index = 0; index < ready.length; index++) {
+      const node = ready[index];
+      const outcome = settled[index];
+      if (outcome.status === "fulfilled") {
+        result.set(node.id, outcome.value);
+        remaining.delete(node.id);
+      } else {
+        failures.push({ id: node.id, reason: outcome.reason });
+      }
+    }
+    if (failures.length) {
+      const error = new AggregateError(
+        failures.map((failure) => failure.reason),
+        "Graph frontier failed"
+      );
+      Object.assign(error, { failures, completed: new Map(result) });
+      throw error;
     }
   }
   return result;
@@ -126,6 +139,7 @@ export function normalizeObservation(input: {
     if (!input[field] || typeof input[field] !== "string")
       throw new Error("Invalid observation field: " + field);
   }
+  if (!["fulfilled", "rejected", "pending", "partial", "skipped"].includes(input.status)) throw new Error("Invalid observation status: " + input.status);
   return {
     id: input.id,
     provider: input.provider,
@@ -154,10 +168,22 @@ export function evaluateGate(checks: Readonly<Record<string, boolean>>): {
   passed: boolean;
   failed: string[];
 } {
-  const failed = Object.entries(checks)
-    .filter(([, passed]) => !passed)
-    .map(([name]) => name);
+  const entries = Object.entries(checks);
+  if (!entries.length) throw new Error("At least one acceptance gate is required");
+  for (const [name, passed] of entries) if (typeof passed !== "boolean") throw new Error("Gate must be boolean: " + name);
+  const failed = entries.filter(([, passed]) => !passed).map(([name]) => name);
   return { passed: failed.length === 0, failed };
+}
+
+function equalData(a: unknown, b: unknown): boolean {
+  if (Object.is(a, b)) return true;
+  if (a === null || b === null || typeof a !== "object" || typeof b !== "object") return false;
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+  if (Array.isArray(a) && Array.isArray(b)) return a.length === b.length && a.every((value, i) => equalData(value, b[i]));
+  const aa = a as Record<string, unknown>, bb = b as Record<string, unknown>;
+  const keys = Object.keys(aa);
+  return keys.length === Object.keys(bb).length &&
+    keys.every(key => Object.prototype.hasOwnProperty.call(bb, key) && equalData(aa[key], bb[key]));
 }
 
 export function reconcile<T>(
@@ -173,7 +199,7 @@ export function reconcile<T>(
   for (const item of desired) {
     if (!current.has(item.id)) result.create.push(item.id);
     else if (
-      JSON.stringify(current.get(item.id)) !== JSON.stringify(item.value)
+      !equalData(current.get(item.id), item.value)
     )
       result.update.push(item.id);
     else result.unchanged.push(item.id);

@@ -1,6 +1,8 @@
 import { spawnSync } from "node:child_process";
 import { mkdirSync, rmSync, cpSync } from "node:fs";
 import { resolve } from "node:path";
+const compiled = spawnSync("tsc", ["-p", "tsconfig.json"], { encoding: "utf8" });
+if (compiled.status !== 0) throw Error(compiled.stdout + compiled.stderr);
 const target = resolve("build/chatgpt-web-java");
 rmSync(resolve("build"), { recursive: true, force: true });
 mkdirSync(target, { recursive: true });
@@ -12,6 +14,19 @@ for (const name of [
   "catalog",
   "examples",
   "src",
+  "dist",
+  "tests",
+  "scripts",
+  "docs",
+  ".github",
+  ".dependency-cruiser.cjs",
+  ".prettierrc",
+  ".prettierignore",
+  ".lintstagedrc.json",
+  "eslint.config.mjs",
+  "AGENTS.md",
+  "CONTEXT.md",
+  "SPEC.md",
   "tsconfig.json",
   "package.json",
 ]) {
