@@ -19,10 +19,7 @@
         "longDescription": "Runtime-first operational engineering reference: 24 specialized skills, 158 sections, runnable examples, and verification runbooks.",
         "developerName": "Samwise-x",
         "category": "Developer Tools",
-        "capabilities": [
-          "Read",
-          "Write"
-        ],
+        "capabilities": ["Read", "Write"],
         "defaultPrompt": [
           "Inspect my available JavaScript orchestration tools",
           "Build a bounded cross-tool execution graph",

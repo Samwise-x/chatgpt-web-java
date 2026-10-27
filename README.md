@@ -5,9 +5,11 @@
 Source: https://github.com/Samwise-x/chatgpt-web-java
 
 ## Entry point
+
 Install the root `plugin.json` package. Select skills by their frontmatter descriptions. Discover the actual host tool contracts through `ALL_TOOLS` and invoke them through `tools`. See `catalog/sections.json` for the indexed table of contents; the runtime and Node fixtures have different interfaces.
 
 ## Domains
+
 - **Runtime Fundamentals** (4): execution-environment, programming-primitives, execution-lifecycle, output-observability
 - **Tool Interface & Discovery** (3): tool-registry, runtime-introspection, tool-invocation
 - **Orchestration & Execution** (5): cross-tool-orchestration, parallel-execution, conditional-workflows, execution-graphs, multi-stage-orchestration
@@ -17,7 +19,9 @@ Install the root `plugin.json` package. Select skills by their frontmatter descr
 - **Operational Runbooks** (2): cross-service-runbooks, complete-execution-patterns
 
 ## Development
+
 `npm install`, then `npm run check`. Run `npm run test:negative` for the deliberately failing enforcement fixtures. Build the installable archive with `npm run package:plugin`; the archive excludes repo-only CI/tests while retaining all skills, references, and examples.
 
 ## Evidence levels
+
 **DOCUMENTED:** host description or upstream documentation. **OBSERVED:** actual tool response or test output. **END-TO-END VERIFIED:** checked remote postcondition or installed package contents.
