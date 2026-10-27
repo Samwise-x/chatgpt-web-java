@@ -1,0 +1,21 @@
+79|Apply typed filters and maps to preserve origin identifiers while selecting only records satisfying the requested predicate.|A filter must not erase rejected status records needed for acceptance.
+80|Aggregate numeric metrics using an explicit initial accumulator, units and known missing-value policy.|Summing string values without normalization must reject.
+81|Sort by a stable comparator with documented tie-breaking, retaining original record IDs.|Equal scores must not randomly reorder acceptance results.
+82|Group by canonical source key and deduplicate only records representing the same event, not merely similar text.|Two events with equal payload but different IDs remain distinct.
+83|Join GitHub and provider observations on declared cross-service identifiers; flag unmatched rows and collisions.|A missing join key must not be treated as matching an arbitrary row.
+84|Use regular expressions for bounded lexical patterns and state that regex is not a semantic JavaScript parser.|A multiline or aliased declaration must not be silently treated as a complete AST result.
+85|Validate required fields, value types and status enumeration before downstream operations.|An observation with a missing source cannot enter an accepted bundle.
+86|Reduce large provider results to decisive fields but retain correlation ID, status, operation and source reference.|Output shrinking must never discard evidence of a failed call.
+87|Complete deterministic source selection and retrieval before model interpretation when the orchestration plan requires pre-inference evidence.|A missing source must remain an explicit partial result.
+88|Normalize oversized responses by retaining a bounded excerpt and file-level provenance, avoiding silent truncation of acceptance-critical fields.|A truncated error that appears successful corrupts diagnostics.
+89|Extract evidence spans with repository path, line or object identifier, retrieval query and original provider URL.|A paraphrased source without an address is not traceable.
+90|Emit only findings relevant to the specified acceptance predicate and keep the ledger of excluded failures available.|Selective context must not imply excluded items passed.
+91|Compare tokens or byte volume before and after reduction while verifying that all required status and source fields survive.|A smaller output with corrupted joins is not an optimization.
+92|Produce a compact structured summary containing counts, pass/fail, source IDs and decisive diagnostics.|An unstructured vague paragraph cannot substitute for machine-readable output.
+93|Define a durable evidence record with id, provider, operation, status, value, source, timestamp and correlation.|A result lacking operation identity cannot substantiate a tool action.
+94|Carry provider-native source identifiers such as repository URL and deployment ID; never replace them with model-invented labels.|A non-resolvable placeholder is not evidence provenance.
+95|Associate every tool response with the request ID and exact operation invoked, even in allSettled output.|An index-shifted array must not attribute another tool's result to this request.
+96|Stamp observations when actually received using valid RFC 3339 or ISO time, distinguishing provider event time from local observation time.|A fabricated or malformed timestamp must reject.
+97|Bundle input, selected tool contract, response receipt, postcondition read and policy evaluation into one reproducible record.|A lone successful response cannot serve as a complete evidence bundle.
+98|Apply a literal acceptance predicate to observed values and store both expected and actual outcomes.|Computing the expected value with the same algorithm as the implementation is tautological.
+99|Aggregate multi-provider evidence with provenance-preserving joins and explicit partial/missing contributions.|One failed service must not be erased when forming a global status.
