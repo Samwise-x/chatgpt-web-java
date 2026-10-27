@@ -1,0 +1,26 @@
+1|Initialize a fresh execution controller, validate input and end with an explicit settled result; no interpreter state is carried into the next invocation.|Run two invocations and require an external checkpoint for continuity.
+2|Execute ECMAScript inside isolated V8; use host tool functions for remote effects rather than treating the isolate as a terminal.|A local filesystem operation attempted inside this isolate must not be described as supported.
+3|Declare lexical bindings and asynchronous statements at module scope; keep Node package imports in the separate Node test harness.|A Node built-in import cannot be assumed available to a host snippet.
+4|Await remote tool promises directly at module scope, collecting actual resolved output before calling text().|Returning success before resolution fails the completion predicate.
+5|Model state as invocation-local objects and maps; every new run starts a fresh environment.|A counter initialized in one execution cannot be used as durable progress in another.
+6|Establish validation, dispatch, settlement and emission stages; track inputs and operation IDs within that bounded lifetime.|Undeclared pending operations invalidate the completion report.
+7|Use ALL_TOOLS for introspection, tools for registered actions, text for result emission and image for supported image content.|An absent helper cannot be substituted with browser APIs.
+8|Use core JavaScript collections, regex, JSON, functions and Promises; delegate network or filesystem work through authorized tools.|Dynamic imports, arbitrary fetch and Node-specific globals are not part of this interface.
+9|Use Map for source-ID joins, Set for duplicate elimination and arrays for ordered parallel results; validate key uniqueness.|Two observations sharing the same key must not silently replace each other.
+10|Capture task IDs and parameter snapshots inside closures, not a mutable loop variable referenced after an await.|An async callback returning the next iteration's ID fails correlation.
+11|Implement a monotonic cursor loop for worker queues and cycle checks for recursive graph traversal.|A repeated cursor and cyclic edge must terminate with an error.
+12|Use Promise.all when all peers are required and fail-fast semantics are acceptable; use allSettled for comprehensive outcomes.|One rejected peer must not erase successful siblings when partial receipts matter.
+13|Handle exceptions with operation identifiers, local-versus-remote attribution and deterministic rejection statuses.|Catching an exception then emitting an accepted status is invalid.
+14|Normalize JSON-compatible outputs before serialization, rejecting unsupported cyclic structures and providing explicit conversions.|JSON.stringify on a self-referential object must not be assumed safe.
+15|Allocate request IDs and validate the target connection before scheduling side effects.|A missing target or ambiguous account must reject before dispatch.
+16|Keep queues, caches and graph maps temporary; persist checkpoints using an externally controlled record if required.|A restarted invocation cannot implicitly resume an in-memory work queue.
+17|Await all essential operations and use settled-outcome aggregation where independent writes might already have occurred.|The call must not claim all peers completed on first rejection.
+18|Associate durable acceptance with an external postcondition read, not with a transient JavaScript variable or write receipt.|A GitHub file-create receipt alone is not proof of content at head.
+19|Emit a compact normalized record with IDs, provider status, source and verification outcome using text().|Calculating results without output emission does not satisfy an observable workflow.
+20|Carry state between runs via explicit versioned provider records and reconcile competing revisions before updates.|An obsolete checkpoint must not overwrite a newer revision.
+21|Use text(value) to output deterministic structured findings and error records, reducing duplicate content first.|A missing emission or a response without source identity fails observability.
+22|Use image(item) only when a supported image item has actually been retrieved or generated.|An ordinary URL string is not by itself a supported image block.
+23|Define output objects with stable id, operation, status, source and selected values for machine-readable consumers.|Missing correlation data makes downstream joins ambiguous.
+24|Record error name, message, origin and failed operation while keeping successful sibling evidence visible.|An exception that disappears into a generic success cannot be audited.
+25|Reduce returned tool data to fields needed for acceptance while preserving rejected results, sources and exact item IDs.|Dropping failures to meet an output budget corrupts the report.
+26|Represent trace entries with node IDs, declared dependencies and observed states, preserving source event order separately from presentation order.|A sorted display order must not be claimed as actual execution order.
