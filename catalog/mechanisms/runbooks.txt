@@ -1,0 +1,16 @@
+143|Inspect a GitHub repository using the exact get_repo operation, the selected connection link and explicit repository_full_name.|Reading a similarly named repository must not pass target identity.
+144|Query GitHub Actions run/jobs by recorded run ID, verify head SHA equals requested commit and compare conclusion against required checks.|A successful run for an older commit cannot certify the current branch.
+145|Retrieve source and docs at fixed commit or version, then compare named symbols and stated interfaces with quoted paths.|A web tutorial cannot override observed upstream implementation.
+146|Read GitHub revision and Neon project state through separately discovered interfaces and reconcile only documented shared identifiers.|A database project cannot be inferred from matching display names alone.
+147|Compare GitHub configuration with Supabase metadata through actual exposed read operations before scheduling any authorized migration.|Presence of a Supabase connector is not approval for schema changes.
+148|Inspect a GitHub commit and matching Vercel deployment, requiring exact deployed SHA and a successful postcondition check.|A healthy deployment on another commit is not acceptance.
+149|Inspect GitHub and Render resource metadata, compare target revisions and preserve deployment receipts before declaring alignment.|A successful trigger without refreshed deployment state is incomplete.
+150|Discover all relevant live provider operations, inspect required selectors, execute independent inventory calls concurrently and merge sourced outcomes.|An unavailable provider must produce an explicit partial record.
+151|Select and invoke one registered operation with authorized parameters, then normalize and output its source receipt.|A mock-only example does not prove a remote read.
+152|Dispatch independent provider reads with Promise.allSettled and correlate every result by original request ID.|A failed read cannot erase successful sibling evidence.
+153|Choose write or no-op based on observed state and explicit policy, invoking authorized tools only when predicates pass.|Unknown input values must not route to the write branch.
+154|Build a small DAG of repository fetch, verification and reporting nodes; validate edges and await all ready-frontier outcomes.|A report node cannot run before verification passes.
+155|Join cross-service current and desired state, calculate create/update/unchanged sets with semantic equality and target authorization.|Property key order alone cannot trigger an update.
+156|Execute bounded inspect–repair–verify cycles and retain failed attempts; stop on every frozen acceptance check.|A successful write receipt without a postcondition is not success.
+157|Emit an evidence bundle with provider, operation, correlation ID, source, timestamp, actual response and acceptance result.|A plain narrative without source identifiers is not sufficient.
+158|Compose discovery, concurrent source reads, deterministic graph scheduling, policy checks, postcondition reads, evidence reduction and final completion gating.|Skipping any mandatory phase must fail the complete runbook.
