@@ -1,0 +1,31 @@
+{
+  "name": "chatgpt-web-java",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "format:check": "prettier --check \"**/*.{md,json,js,mjs,ts,yml,yaml}\"",
+    "format": "prettier --write \"**/*.{md,json,js,mjs,ts,yml,yaml}\"",
+    "lint": "eslint \"src/**/*.ts\" \"tests/**/*.mjs\" \"examples/**/*.mjs\"",
+    "lint:boundaries": "depcruise src/packages --config .dependency-cruiser.cjs --output-type err",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "test:negative": "node --test tests/negative.test.mjs",
+    "package:plugin": "node scripts/package-plugin.mjs",
+    "validate:plugin": "node scripts/validate-plugin.mjs",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run lint:boundaries && npm test && npm run validate:plugin",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "dependency-cruiser": "^16.10.0",
+    "eslint": "^9.25.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,23 @@
+name: deterministic-acceptance
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+      - run: npm run check
+      - run: npm run test:negative
+      - run: npm run package:plugin
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chatgpt-web-java-plugin
+          path: build/chatgpt-web-java-plugin.zip
