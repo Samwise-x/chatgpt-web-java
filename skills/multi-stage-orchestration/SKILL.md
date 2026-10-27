@@ -15,7 +15,6 @@ Build coherent inspect→evaluate→act→verify stages. Load only the selected 
 
 1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
 2. Validate the requested target, account link, input and acceptance predicates before effects.
-3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
 4. Evaluate both positive and negative criteria below, then emit a source-bearing result with `text()`.
 
 ## Section-specific operating rules
@@ -83,4 +82,3 @@ Read [references/details.md](./references/details.md) for directly loadable inpu
 ## Acceptance
 
 - Every numbered section has its own operating rule and independent negative case.
-- The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.
