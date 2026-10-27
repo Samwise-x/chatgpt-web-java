@@ -25,3 +25,7 @@ Install the root `plugin.json` package. Select skills by their frontmatter descr
 ## Evidence levels
 
 **DOCUMENTED:** host description or upstream documentation. **OBSERVED:** actual tool response or test output. **END-TO-END VERIFIED:** checked remote postcondition or installed package contents.
+
+## Advanced field manual
+
+Every specialized skill has an associated mechanics walkthrough, host-runtime recipe, and use case in [the advanced field manual](references/advanced-field-manual.md).
