@@ -14,16 +14,6 @@ jobs:
         with:
           node-version: "22"
       - run: npm install --no-audit --no-fund
-      - name: Normalize source formatting in the build
-        run: npm run format
-      - name: Emit normalized tracked files for exact source sync
-        run: |
-          node - <<'NODE'
-          const fs = require("node:fs");
-          const cp = require("node:child_process");
-          const paths = cp.execFileSync("git",["diff","--name-only","--"],{encoding:"utf8"}).trim().split("\n").filter(Boolean);
-          for(const path of paths) console.log("FORMATTED_SOURCE="+JSON.stringify({path,content:fs.readFileSync(path,"utf8")}));
-          NODE
       - run: npm run check
       - run: npm run test:negative
       - run: npm run package:plugin
