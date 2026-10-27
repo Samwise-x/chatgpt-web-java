@@ -18,7 +18,7 @@ for (const skill of skills) {
   test("skill acceptance: " + skill.slug, () => {
     const md = readFileSync(join("skills", skill.slug, "SKILL.md"), "utf8");
     assert.ok(md.startsWith("---\nname: " + skill.slug + "\n"));
-    assert.match(md, /## Trigger and objective/);
+    assert.match(md, /## (Use this skill|Scope and routing|Trigger and objective)/);
     assert.match(md, /## Acceptance/);
     assert.equal(
       sections.filter((s) => s.skill === skill.slug).length,
