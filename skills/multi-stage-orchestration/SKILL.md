@@ -1,96 +1,82 @@
 ---
 name: multi-stage-orchestration
-description: Build coherent inspect→evaluate→act→verify stages. Use when requests involve multi-stage orchestration, its subtopics, or compositions requiring it.
+description: Build coherent inspect→evaluate→act→verify stages. Use for multi-stage orchestration and its named procedures.
 ---
 
 # Multi-Stage Orchestration
 
-**Domain:** Orchestration & Execution · **Sections:** 72–78 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** orchestration · **Sections:** 72–78.
 
-## Trigger and objective
+## Use this skill
+Build coherent inspect→evaluate→act→verify stages. Load only the selected skill and its co-located reference when composing workflows.
 
-Build coherent inspect→evaluate→act→verify stages. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
+2. Validate the requested target, account link, input and acceptance predicates before effects.
+3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
+4. Evaluate both positive and negative criteria below, then emit a source-bearing result with `text()`.
 
-## Procedure
-
-Define graph and acceptance predicate → validate dependencies → launch independent tasks concurrently → await all required results → evaluate policies → verify postconditions.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 72. Multi-service evidence collection
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Collect separate observations from every selected service with provider, operation, source and request correlation.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **multi-service evidence collection**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An unavailable provider must be represented as failure, not empty success.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 73. Normalization pipelines
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Normalize provider results to a common schema with validated statuses before computing cross-source policy.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **normalization pipelines**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Different JSON field names cannot be treated as equivalent without mapping.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 74. Evaluation stages
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Apply all policy predicates to one observed snapshot and prevent plan creation when required evidence is missing.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **evaluation stages**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Partial evidence must not silently qualify a resource for promotion.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 75. Operation-plan construction
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Represent the execution plan as actions with target, precondition, expected effect and verification method.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **operation-plan construction**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Do not report a planned step as an executed step.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 76. Execution phases
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Execute independent approved operations in parallel but await settled results before advancing dependent phases.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **execution phases**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** The next phase must not start while predecessor writes remain unresolved.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 77. Post-execution verification
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** After any write, make an independent read to compare observed state against expected postcondition; retain both source references.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **post-execution verification**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A write receipt is not itself a verified resulting state.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 78. Result consolidation
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Consolidate all stage outcomes and partial failures into a complete provenance-bearing bundle with an executable final predicate.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **result consolidation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A summary omitting rejected stages is not reproducible.
 
-## Executable operational recipe
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "multi-stage-orchestration",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for directly loadable input schemas, examples and failure criteria.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has its own operating rule and independent negative case.
+- The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.

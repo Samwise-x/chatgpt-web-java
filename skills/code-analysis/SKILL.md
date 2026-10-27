@@ -1,96 +1,82 @@
 ---
 name: code-analysis
-description: Analyze retrieved code and reconstruct import and call relationships. Use when requests involve source code analysis, its subtopics, or compositions requiring it.
+description: Analyze retrieved code and reconstruct import and call relationships. Use for source code analysis and its named procedures.
 ---
 
 # Source Code Analysis
 
-**Domain:** Advanced Engineering · **Sections:** 100–106 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** advanced-engineering · **Sections:** 100–106.
 
-## Trigger and objective
+## Use this skill
+Analyze retrieved code and reconstruct import and call relationships. Load only the selected skill and its co-located reference when composing workflows.
 
-Analyze retrieved code and reconstruct import and call relationships. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
+2. Validate the requested target, account link, input and acceptance predicates before effects.
+3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
+4. Evaluate both positive and negative criteria below, then emit a source-bearing result with `text()`.
 
-## Procedure
-
-Write one public-seam test → execute red case → implement smallest correction → execute green case → run full check → review actual diff.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 100. Repository source retrieval
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Fetch a repository tree and source files through documented GitHub operations, recording target ref and file path.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **repository source retrieval**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A default-branch read must not be reported as an arbitrary release ref.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 101. File classification
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Classify files by validated extension, known syntax mode and generated-code markers before selecting parser techniques.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **file classification**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Binary or generated content must not be sent through an incompatible text parser.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 102. Symbol extraction
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Extract named symbols using a real TypeScript syntax tree when accuracy matters, retaining export kind and source span.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **symbol extraction**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Regex-only lexical matches cannot prove nested or aliased symbol semantics.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 103. Import/export analysis
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Resolve imports and exports across relative and package specifiers, tracking reexports and unresolved paths separately.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **import/export analysis**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An unresolved alias must not be silently treated as a local module.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 104. Dependency graph construction
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Build a directed graph of source modules from resolved imports, with cycle detection and provenance on each edge.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **dependency graph construction**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A guessed dependency edge is not confirmed by a missing file.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 105. AST-assisted analysis
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Parse TypeScript or JavaScript through an AST-capable compiler interface before making syntax-level claims.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **ast-assisted analysis**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A comment containing 'export function' cannot count as an exported symbol.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 106. Call-chain investigation
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Traverse call references from a selected entry point, distinguishing static direct calls from dynamic dispatch and unresolved targets.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **call-chain investigation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A string matching a function name is not proof of an executable call edge.
 
-## Executable operational recipe
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "code-analysis",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for directly loadable input schemas, examples and failure criteria.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has its own operating rule and independent negative case.
+- The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.

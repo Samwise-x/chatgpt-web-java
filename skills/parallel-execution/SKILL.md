@@ -1,96 +1,82 @@
 ---
 name: parallel-execution
-description: Control asynchronous concurrency and correlation of tool responses. Use when requests involve parallel execution & concurrency, its subtopics, or compositions requiring it.
+description: Control asynchronous concurrency and correlation of tool responses. Use for parallel execution & concurrency and its named procedures.
 ---
 
 # Parallel Execution & Concurrency
 
-**Domain:** Orchestration & Execution · **Sections:** 51–57 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** orchestration · **Sections:** 51–57.
 
-## Trigger and objective
+## Use this skill
+Control asynchronous concurrency and correlation of tool responses. Load only the selected skill and its co-located reference when composing workflows.
 
-Control asynchronous concurrency and correlation of tool responses. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
+2. Validate the requested target, account link, input and acceptance predicates before effects.
+3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
+4. Evaluate both positive and negative criteria below, then emit a source-bearing result with `text()`.
 
-## Procedure
-
-Define graph and acceptance predicate → validate dependencies → launch independent tasks concurrently → await all required results → evaluate policies → verify postconditions.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 51. Promise.all()
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Use Promise.all only where fail-fast control flow is intended, understanding that already started peers are not cancelled.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **promise.all()**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A rejection does not prove all siblings stopped.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 52. Promise.allSettled()
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Use Promise.allSettled to retain fulfilled and rejected entries with their original input indices.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **promise.allsettled()**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Completion order must not be confused with index ordering.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 53. Sequential versus concurrent execution
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Compare sequential and concurrent strategies using the same workload and acceptance predicate before interpreting timing differences.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **sequential versus concurrent execution**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A faster path with missing results fails equivalence.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 54. Bounded concurrency
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Limit concurrency to a positive integer number of active workers; record peak simultaneous jobs in tests.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **bounded concurrency**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Zero or negative concurrency must reject before dispatch.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 55. Worker-pool implementations
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Assign work through a monotonic shared cursor and write results to stable indices, including error outcomes.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **worker-pool implementations**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Concurrent workers must not consume an item twice.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 56. Batch processing
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Partition workloads into bounded chunks, process every final partial batch and preserve failed IDs for explicit retry.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **batch processing**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** The last incomplete chunk must not be dropped.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 57. Parallel result correlation
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Carry each operation ID alongside Promise settlement and reconcile all outcomes with the original request order.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **parallel result correlation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A result without its request ID is untraceable.
 
-## Executable operational recipe
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "parallel-execution",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for directly loadable input schemas, examples and failure criteria.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has its own operating rule and independent negative case.
+- The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.

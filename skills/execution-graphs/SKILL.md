@@ -1,96 +1,82 @@
 ---
 name: execution-graphs
-description: Validate and execute DAGs with observable dependency ordering. Use when requests involve execution graphs & dependency scheduling, its subtopics, or compositions requiring it.
+description: Validate and execute DAGs with observable dependency ordering. Use for execution graphs & dependency scheduling and its named procedures.
 ---
 
 # Execution Graphs & Dependency Scheduling
 
-**Domain:** Orchestration & Execution · **Sections:** 65–71 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** orchestration · **Sections:** 65–71.
 
-## Trigger and objective
+## Use this skill
+Validate and execute DAGs with observable dependency ordering. Load only the selected skill and its co-located reference when composing workflows.
 
-Validate and execute DAGs with observable dependency ordering. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
+2. Validate the requested target, account link, input and acceptance predicates before effects.
+3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
+4. Evaluate both positive and negative criteria below, then emit a source-bearing result with `text()`.
 
-## Procedure
-
-Define graph and acceptance predicate → validate dependencies → launch independent tasks concurrently → await all required results → evaluate policies → verify postconditions.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 65. Directed acyclic graphs
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Specify each DAG node with a unique ID, list of predecessor IDs and an executable function before constructing any frontier.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **directed acyclic graphs**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Duplicate node IDs must fail before execution.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 66. Dependency resolution
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Validate all edges exist and traverse visiting/visited sets to detect cycles and self-dependencies.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **dependency resolution**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A missing dependency or A→B→A cycle cannot launch jobs.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 67. Topological execution ordering
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Select ready nodes only after all their predecessors fulfilled their contracts, recording scheduling order distinctly from completion order.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **topological execution ordering**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A child must not run before its dependencies settle.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 68. Concurrent independent graph nodes
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Launch independent ready nodes concurrently and await the entire frontier so successful siblings are preserved on another failure.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **concurrent independent graph nodes**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Fail-fast Promise.all must not hide in-flight sibling effects.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 69. Multi-stage execution pipelines
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Build an explicit progression through validation, observation, planning, dispatch and postcondition verification phases.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **multi-stage execution pipelines**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A pipeline skipping its verification phase cannot claim acceptance.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 70. Workflow state transitions
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Record every workflow transition as origin state, event, destination state and source evidence ID.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **workflow state transitions**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Unknown transitions cannot advance a state machine.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 71. Graph execution reporting
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Return success and failure results keyed by node ID, including completed siblings and structured rejected reasons.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **graph execution reporting**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** One exception cannot erase already committed sibling outcomes.
 
-## Executable operational recipe
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "execution-graphs",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for directly loadable input schemas, examples and failure criteria.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has its own operating rule and independent negative case.
+- The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.

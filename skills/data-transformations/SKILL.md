@@ -1,96 +1,82 @@
 ---
 name: data-transformations
-description: Normalize provider records into stable, comparable structures. Use when requests involve data transformation engine, its subtopics, or compositions requiring it.
+description: Normalize provider records into stable, comparable structures. Use for data transformation engine and its named procedures.
 ---
 
 # Data Transformation Engine
 
-**Domain:** Data & Context Engineering · **Sections:** 79–85 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** data-context · **Sections:** 79–85.
 
-## Trigger and objective
+## Use this skill
+Normalize provider records into stable, comparable structures. Load only the selected skill and its co-located reference when composing workflows.
 
-Normalize provider records into stable, comparable structures. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
+2. Validate the requested target, account link, input and acceptance predicates before effects.
+3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
+4. Evaluate both positive and negative criteria below, then emit a source-bearing result with `text()`.
 
-## Procedure
-
-Capture records with origin → normalize and validate → reduce or join → assert evidence invariants → emit compact structured results.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 79. Filtering and mapping
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Apply typed filters and maps to preserve origin identifiers while selecting only records satisfying the requested predicate.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **filtering and mapping**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A filter must not erase rejected status records needed for acceptance.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 80. Reduction and aggregation
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Aggregate numeric metrics using an explicit initial accumulator, units and known missing-value policy.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **reduction and aggregation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Summing string values without normalization must reject.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 81. Sorting and ranking
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Sort by a stable comparator with documented tie-breaking, retaining original record IDs.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **sorting and ranking**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Equal scores must not randomly reorder acceptance results.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 82. Grouping and deduplication
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Group by canonical source key and deduplicate only records representing the same event, not merely similar text.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **grouping and deduplication**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Two events with equal payload but different IDs remain distinct.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 83. Cross-service joins
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Join GitHub and provider observations on declared cross-service identifiers; flag unmatched rows and collisions.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **cross-service joins**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A missing join key must not be treated as matching an arbitrary row.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 84. Regular-expression extraction
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Use regular expressions for bounded lexical patterns and state that regex is not a semantic JavaScript parser.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **regular-expression extraction**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A multiline or aliased declaration must not be silently treated as a complete AST result.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 85. Structured data validation
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Validate required fields, value types and status enumeration before downstream operations.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **structured data validation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An observation with a missing source cannot enter an accepted bundle.
 
-## Executable operational recipe
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "data-transformations",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for directly loadable input schemas, examples and failure criteria.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has its own operating rule and independent negative case.
+- The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.

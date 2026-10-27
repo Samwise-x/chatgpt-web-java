@@ -1,96 +1,82 @@
 ---
 name: context-compression
-description: Reduce tool output before emitting it into model context. Use when requests involve context compression through execution, its subtopics, or compositions requiring it.
+description: Reduce tool output before emitting it into model context. Use for context compression through execution and its named procedures.
 ---
 
 # Context Compression Through Execution
 
-**Domain:** Data & Context Engineering · **Sections:** 86–92 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** data-context · **Sections:** 86–92.
 
-## Trigger and objective
+## Use this skill
+Reduce tool output before emitting it into model context. Load only the selected skill and its co-located reference when composing workflows.
 
-Reduce tool output before emitting it into model context. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Inspect current tool names and exact invocation contracts from `ALL_TOOLS`.
+2. Validate the requested target, account link, input and acceptance predicates before effects.
+3. Execute this skill's host program from [references/host-recipe.js](./references/host-recipe.js), awaiting every essential operation.
+4. Evaluate both positive and negative criteria below, then emit a source-bearing result with `text()`.
 
-## Procedure
-
-Capture records with origin → normalize and validate → reduce or join → assert evidence invariants → emit compact structured results.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 86. Tool-result reduction
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Reduce large provider results to decisive fields but retain correlation ID, status, operation and source reference.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **tool-result reduction**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Output shrinking must never discard evidence of a failed call.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 87. Pre-inference data processing
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Complete deterministic source selection and retrieval before model interpretation when the orchestration plan requires pre-inference evidence.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **pre-inference data processing**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A missing source must remain an explicit partial result.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 88. Large response normalization
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Normalize oversized responses by retaining a bounded excerpt and file-level provenance, avoiding silent truncation of acceptance-critical fields.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **large response normalization**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A truncated error that appears successful corrupts diagnostics.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 89. Source evidence extraction
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Extract evidence spans with repository path, line or object identifier, retrieval query and original provider URL.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **source evidence extraction**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A paraphrased source without an address is not traceable.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 90. Selective context emission
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Emit only findings relevant to the specified acceptance predicate and keep the ledger of excluded failures available.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **selective context emission**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Selective context must not imply excluded items passed.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 91. Context-efficient orchestration
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Compare tokens or byte volume before and after reduction while verifying that all required status and source fields survive.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **context-efficient orchestration**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A smaller output with corrupted joins is not an optimization.
+
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
 ### 92. Compact structured reporting
 
-**Operational rule.** Define a minimal result schema that retains source identity and status. Apply the transformation to fixtures with duplicates, failures, and missing fields; assert invariant preservation and output size.
+**Mechanism:** Produce a compact structured summary containing counts, pass/fail, source IDs and decisive diagnostics.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **compact structured reporting**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An unstructured vague paragraph cannot substitute for machine-readable output.
 
-## Executable operational recipe
+**Verification:** Supply a positive example, then demonstrate the negative condition is rejected, preserving tool identity, request correlation and provenance.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "context-compression",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for directly loadable input schemas, examples and failure criteria.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has its own operating rule and independent negative case.
+- The skill-specific host recipe must execute under injected tool mocks; live connector outcomes require separate source observations.
