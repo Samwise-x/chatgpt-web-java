@@ -27,51 +27,55 @@ Identify the requested runtime property → inspect available globals and docume
 
 ### 1. Runtime architecture and execution lifecycle
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanics.** An invocation initializes a fresh isolated JavaScript environment, discovers connected interfaces, performs awaited operations and explicitly emits an output. A second invocation cannot access a variable created by the first.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **runtime architecture and execution lifecycle**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
 
 ### 2. V8 execution environment
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanics.** V8 evaluates JavaScript and standard language collections; connected service I/O is mediated through the exposed tools interface rather than unrestricted operating-system access.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **v8 execution environment**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
 
 ### 3. ECMAScript module semantics
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanics.** The host evaluates ECMAScript module syntax with top-level declarations and await. Node-specific imports belong in the separate executable fixture environment.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **ecmascript module semantics**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
 
 ### 4. Top-level await
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanics.** Await every required tool operation before returning. A dropped promise does not constitute a completed tool call or an accepted result.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **top-level await**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
 
 ### 5. Execution isolation
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanics.** Temporary maps and closures only survive while their invocation runs. A durable checkpoint must be stored and subsequently read from an explicitly authorized external system.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **execution isolation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
 
 ### 6. Invocation boundaries
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanics.** Validate target and authorization before the first side effect and finish with an evidence bundle that includes operation IDs, outcomes and postcondition observations.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **invocation boundaries**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
 
 ### 7. Available global interfaces
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanics.** Inspect current `ALL_TOOLS` entries, use `tools[exactName]` for connected operations and `text(value)` for output. Unsupported interfaces must be treated as absent.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **available global interfaces**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
 
 ### 8. Runtime capabilities and interface constraints
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanics.** Use built-in Promise, Map, Set, Array and JSON operations; route filesystem and process work to the separate supported execution surface.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **runtime capabilities and interface constraints**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+
+## Skill-specific implementation reference
+
+Read [runtime detail](./references/details.md) for independent host-runtime checks and failure demonstrations. The reference is co-located under this installed skill.
 
 ## Executable operational recipe
 
