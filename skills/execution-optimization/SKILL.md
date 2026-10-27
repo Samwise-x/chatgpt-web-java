@@ -1,90 +1,74 @@
 ---
 name: execution-optimization
-description: Measure scheduling overhead and reduce redundant work. Use when requests involve execution optimization, its subtopics, or compositions requiring it.
+description: Measure scheduling overhead and reduce redundant work. Use when requests involve execution optimization or composition requiring it.
 ---
 
 # Execution Optimization
 
-**Domain:** Advanced Engineering · **Sections:** 119–124 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** advanced-engineering; **Section identifiers:** 119–124.
 
-## Trigger and objective
+## Scope and routing
+Measure scheduling overhead and reduce redundant work. Select on a request about these mechanisms, not unrelated registry exploration. Read the detailed co-located reference if the acceptance conditions are in scope.
 
-Measure scheduling overhead and reduce redundant work. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Discover exact available tool names and argument contracts using `ALL_TOOLS`.
+2. Validate authorization and user target independently of capability presence.
+3. Execute this skill's specific host recipe from [references/host-recipe.js](./references/host-recipe.js).
+4. Normalize results with status, operation, source and correlation; verify persistent effects by independent read.
+5. Apply all section-specific success and negative conditions before completion.
 
-## Procedure
-
-Write one public-seam test → execute red case → implement smallest correction → execute green case → run full check → review actual diff.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 119. Tool-call batching
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Batch compatible reads where a provider interface explicitly supports it, preserving per-item identities and failures.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **tool-call batching**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A made-up multi-call argument must not be passed to a single-item interface.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 120. Concurrency optimization
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Measure throughput and maximum concurrent operations at fixed worker caps while holding workload and acceptance constant.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **concurrency optimization**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Improved wall time does not excuse missing results.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 121. Dependency-aware scheduling
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Start graph nodes only when dependencies pass, parallelizing ready frontier nodes while bounding work as specified.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **dependency-aware scheduling**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A dependent node cannot run when its predecessor rejected.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 122. Intermediate-result reduction
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Remove redundant intermediate payloads before emitting results while preserving provenance, source and error statuses.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **intermediate-result reduction**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Reduced output must not hide rejected operations.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 123. Repeated-operation elimination
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Deduplicate repeated identical reads within the invocation by canonical target and immutable revision identifier.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **repeated-operation elimination**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Reads of changing branches cannot be cached as if immutable without revision checks.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 124. Execution efficiency measurement
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Record dispatch count, elapsed stage time when supported by tools, reduction ratio and accepted-outcome count.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **execution efficiency measurement**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A reported speedup without measured baseline and equivalent output is not evidence.
 
-## Executable operational recipe
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "execution-optimization",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+[Read the skill-local details](./references/details.md) through the installed skill-resource reader.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+Run the matching per-skill fixture and its negative case; record result and preserve the fixed 158-section acceptance contract.

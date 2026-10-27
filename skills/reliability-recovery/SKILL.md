@@ -1,90 +1,74 @@
 ---
 name: reliability-recovery
-description: Preserve partial results and resume controlled operations without silent promotion. Use when requests involve reliability & execution recovery, its subtopics, or compositions requiring it.
+description: Preserve partial results and resume controlled operations without silent promotion. Use when requests involve reliability & execution recovery or composition requiring it.
 ---
 
 # Reliability & Execution Recovery
 
-**Domain:** Advanced Engineering · **Sections:** 113–118 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** advanced-engineering; **Section identifiers:** 113–118.
 
-## Trigger and objective
+## Scope and routing
+Preserve partial results and resume controlled operations without silent promotion. Select on a request about these mechanisms, not unrelated registry exploration. Read the detailed co-located reference if the acceptance conditions are in scope.
 
-Preserve partial results and resume controlled operations without silent promotion. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Discover exact available tool names and argument contracts using `ALL_TOOLS`.
+2. Validate authorization and user target independently of capability presence.
+3. Execute this skill's specific host recipe from [references/host-recipe.js](./references/host-recipe.js).
+4. Normalize results with status, operation, source and correlation; verify persistent effects by independent read.
+5. Apply all section-specific success and negative conditions before completion.
 
-## Procedure
-
-Write one public-seam test → execute red case → implement smallest correction → execute green case → run full check → review actual diff.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 113. Exception management
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Contain errors by operation and stage, preserving the failed input and successful sibling results.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **exception management**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An exception handler must not turn a failure into a silent success.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 114. Partial execution handling
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Represent partial execution explicitly with fulfilled, rejected and pending nodes before deciding remediation.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **partial execution handling**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** One failed DAG node must not discard a successful sibling write.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 115. Retry strategies
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Retry only provider-classified transient errors, with bounded attempts and preserved attempt history.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **retry strategies**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Repeated unauthorized or validation failures must not enter a retry storm.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 116. Idempotent operations
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Use provider idempotency keys or read-before-write guards for retryable mutations and verify resulting uniqueness.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **idempotent operations**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Blind replay of create operations risks duplicate resources.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 117. Execution checkpoints
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Persist checkpoints externally with generation/revision identity, never relying on in-memory counters between invocations.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **execution checkpoints**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A stale checkpoint must not overwrite a newer committed state.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 118. Recovery evidence
 
-**Operational rule.** Test public behavior against a known fixture and a mutation that should fail. Record exact command, expected output, and observed response. For a remote effect, follow the write with an independent read.
+**Mechanism:** Produce a recovery ledger with initial failure, attempted correction, external receipt and final postcondition.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **recovery evidence**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A retry attempt without follow-up read cannot count as recovered.
 
-## Executable operational recipe
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "reliability-recovery",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+[Read the skill-local details](./references/details.md) through the installed skill-resource reader.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+Run the matching per-skill fixture and its negative case; record result and preserve the fixed 158-section acceptance contract.

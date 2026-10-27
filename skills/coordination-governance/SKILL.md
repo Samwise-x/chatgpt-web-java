@@ -1,90 +1,74 @@
 ---
 name: coordination-governance
-description: Apply policy gates to tool eligibility and evidence admission. Use when requests involve agent coordination & governance, its subtopics, or compositions requiring it.
+description: Apply policy gates to tool eligibility and evidence admission. Use when requests involve agent coordination & governance or composition requiring it.
 ---
 
 # Agent Coordination & Governance
 
-**Domain:** Agentic Systems · **Sections:** 131–136 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** agentic-systems; **Section identifiers:** 131–136.
 
-## Trigger and objective
+## Scope and routing
+Apply policy gates to tool eligibility and evidence admission. Select on a request about these mechanisms, not unrelated registry exploration. Read the detailed co-located reference if the acceptance conditions are in scope.
 
-Apply policy gates to tool eligibility and evidence admission. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Discover exact available tool names and argument contracts using `ALL_TOOLS`.
+2. Validate authorization and user target independently of capability presence.
+3. Execute this skill's specific host recipe from [references/host-recipe.js](./references/host-recipe.js).
+4. Normalize results with status, operation, source and correlation; verify persistent effects by independent read.
+5. Apply all section-specific success and negative conditions before completion.
 
-## Procedure
-
-Parse explicit objective → discover eligible operations → evaluate deterministic policy → dispatch → observe → persist evidence externally.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 131. Capability inventories
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Enumerate capability names and types from the current registry and classify eligibility separately from availability.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **capability inventories**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Newly discovered write tooling does not expand granted authority.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 132. Operation eligibility
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Evaluate task-to-operation eligibility with user objective, target, scope, method and required gate predicates.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **operation eligibility**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A read-only objective cannot select a destructive tool.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 133. Authorization-aware execution
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Bind authorization to exact account, repository or database and selected operation before dispatch; avoid interpolating secrets into output.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **authorization-aware execution**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A privileged connector installed globally is not permission to mutate all resources.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 134. Policy gates
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Use a nonempty conjunction of boolean acceptance gates and block unknown or false predicates.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **policy gates**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A truthy number or empty policy must not pass.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 135. Evidence-driven decisions
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Derive decisions exclusively from provenance-bearing observations and literal policy, preserving rejected and partial evidence.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **evidence-driven decisions**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An unsupported inference cannot promote a capability.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 136. Controlled capability promotion
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Require a separate explicit evidence/admission step before expanding a worker's allowed operations or authority.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **controlled capability promotion**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Passing more tasks does not itself grant a new permission.
 
-## Executable operational recipe
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "coordination-governance",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+[Read the skill-local details](./references/details.md) through the installed skill-resource reader.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+Run the matching per-skill fixture and its negative case; record result and preserve the fixed 158-section acceptance contract.

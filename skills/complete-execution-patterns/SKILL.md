@@ -1,102 +1,90 @@
 ---
 name: complete-execution-patterns
-description: Run complete demonstrable samples with synthetic and optionally live adapters. Use when requests involve complete execution patterns, its subtopics, or compositions requiring it.
+description: Run complete demonstrable samples with synthetic and optionally live adapters. Use when requests involve complete execution patterns or composition requiring it.
 ---
 
 # Complete Execution Patterns
 
-**Domain:** Operational Runbooks · **Sections:** 151–158 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** runbooks; **Section identifiers:** 151–158.
 
-## Trigger and objective
+## Scope and routing
+Run complete demonstrable samples with synthetic and optionally live adapters. Select on a request about these mechanisms, not unrelated registry exploration. Read the detailed co-located reference if the acceptance conditions are in scope.
 
-Run complete demonstrable samples with synthetic and optionally live adapters. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Discover exact available tool names and argument contracts using `ALL_TOOLS`.
+2. Validate authorization and user target independently of capability presence.
+3. Execute this skill's specific host recipe from [references/host-recipe.js](./references/host-recipe.js).
+4. Normalize results with status, operation, source and correlation; verify persistent effects by independent read.
+5. Apply all section-specific success and negative conditions before completion.
 
-## Procedure
-
-Select a scenario → inspect exact tool schemas → run deterministic fixture → perform authorized live operations where requested → verify with independent reads.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 151. Single-tool execution
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Select and invoke one registered operation with authorized parameters, then normalize and output its source receipt.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **single-tool execution**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A mock-only example does not prove a remote read.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 152. Parallel evidence collection
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Dispatch independent provider reads with Promise.allSettled and correlate every result by original request ID.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **parallel evidence collection**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A failed read cannot erase successful sibling evidence.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 153. Conditional cross-tool execution
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Choose write or no-op based on observed state and explicit policy, invoking authorized tools only when predicates pass.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **conditional cross-tool execution**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Unknown input values must not route to the write branch.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 154. Dependency-aware workflow
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Build a small DAG of repository fetch, verification and reporting nodes; validate edges and await all ready-frontier outcomes.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **dependency-aware workflow**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A report node cannot run before verification passes.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 155. Cross-service reconciliation
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Join cross-service current and desired state, calculate create/update/unchanged sets with semantic equality and target authorization.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **cross-service reconciliation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Property key order alone cannot trigger an update.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 156. Automated verification loop
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Execute bounded inspect–repair–verify cycles and retain failed attempts; stop on every frozen acceptance check.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **automated verification loop**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A successful write receipt without a postcondition is not success.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 157. Evidence-producing execution pipeline
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Emit an evidence bundle with provider, operation, correlation ID, source, timestamp, actual response and acceptance result.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **evidence-producing execution pipeline**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A plain narrative without source identifiers is not sufficient.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 158. Comprehensive orchestration example
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Compose discovery, concurrent source reads, deterministic graph scheduling, policy checks, postcondition reads, evidence reduction and final completion gating.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **comprehensive orchestration example**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Skipping any mandatory phase must fail the complete runbook.
 
-## Executable operational recipe
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /fetch/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "complete-execution-patterns",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+[Read the skill-local details](./references/details.md) through the installed skill-resource reader.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+Run the matching per-skill fixture and its negative case; record result and preserve the fixed 158-section acceptance contract.

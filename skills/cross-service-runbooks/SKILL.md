@@ -1,102 +1,90 @@
 ---
 name: cross-service-runbooks
-description: Compose live GitHub and other available service tools without treating them as permanent dependencies. Use when requests involve cross-service orchestration runbooks, its subtopics, or compositions requiring it.
+description: Compose live GitHub and other available service tools without treating them as permanent dependencies. Use when requests involve cross-service orchestration runbooks or composition requiring it.
 ---
 
 # Cross-Service Orchestration Runbooks
 
-**Domain:** Operational Runbooks · **Sections:** 143–150 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** runbooks; **Section identifiers:** 143–150.
 
-## Trigger and objective
+## Scope and routing
+Compose live GitHub and other available service tools without treating them as permanent dependencies. Select on a request about these mechanisms, not unrelated registry exploration. Read the detailed co-located reference if the acceptance conditions are in scope.
 
-Compose live GitHub and other available service tools without treating them as permanent dependencies. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Discover exact available tool names and argument contracts using `ALL_TOOLS`.
+2. Validate authorization and user target independently of capability presence.
+3. Execute this skill's specific host recipe from [references/host-recipe.js](./references/host-recipe.js).
+4. Normalize results with status, operation, source and correlation; verify persistent effects by independent read.
+5. Apply all section-specific success and negative conditions before completion.
 
-## Procedure
-
-Select a scenario → inspect exact tool schemas → run deterministic fixture → perform authorized live operations where requested → verify with independent reads.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 143. GitHub repository inspection
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Inspect a GitHub repository using the exact get_repo operation, the selected connection link and explicit repository_full_name.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **github repository inspection**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Reading a similarly named repository must not pass target identity.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 144. GitHub Actions workflow evaluation
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Query GitHub Actions run/jobs by recorded run ID, verify head SHA equals requested commit and compare conclusion against required checks.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **github actions workflow evaluation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A successful run for an older commit cannot certify the current branch.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 145. GitHub + documentation analysis
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Retrieve source and docs at fixed commit or version, then compare named symbols and stated interfaces with quoted paths.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **github + documentation analysis**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A web tutorial cannot override observed upstream implementation.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 146. GitHub + Neon reconciliation
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Read GitHub revision and Neon project state through separately discovered interfaces and reconcile only documented shared identifiers.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **github + neon reconciliation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A database project cannot be inferred from matching display names alone.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 147. GitHub + Supabase integration
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Compare GitHub configuration with Supabase metadata through actual exposed read operations before scheduling any authorized migration.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **github + supabase integration**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Presence of a Supabase connector is not approval for schema changes.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 148. GitHub + Vercel deployment coordination
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Inspect a GitHub commit and matching Vercel deployment, requiring exact deployed SHA and a successful postcondition check.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **github + vercel deployment coordination**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A healthy deployment on another commit is not acceptance.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 149. GitHub + Render deployment inspection
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Inspect GitHub and Render resource metadata, compare target revisions and preserve deployment receipts before declaring alignment.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **github + render deployment inspection**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A successful trigger without refreshed deployment state is incomplete.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 150. Multi-provider infrastructure inventory
 
-**Operational rule.** Discover the live named tool, read its schema, construct input with the authorized account, execute and collect a source URL; distinguish fixture-based rehearsals from live provider runs.
+**Mechanism:** Discover all relevant live provider operations, inspect required selectors, execute independent inventory calls concurrently and merge sourced outcomes.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **multi-provider infrastructure inventory**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An unavailable provider must produce an explicit partial record.
 
-## Executable operational recipe
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /fetch/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "cross-service-runbooks",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+[Read the skill-local details](./references/details.md) through the installed skill-resource reader.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+Run the matching per-skill fixture and its negative case; record result and preserve the fixed 158-section acceptance contract.

@@ -1,90 +1,74 @@
 ---
 name: self-correcting-loops
-description: Iterate from observations to corrective operations until checks pass. Use when requests involve self-correcting execution loops, its subtopics, or compositions requiring it.
+description: Iterate from observations to corrective operations until checks pass. Use when requests involve self-correcting execution loops or composition requiring it.
 ---
 
 # Self-Correcting Execution Loops
 
-**Domain:** Agentic Systems · **Sections:** 137–142 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** agentic-systems; **Section identifiers:** 137–142.
 
-## Trigger and objective
+## Scope and routing
+Iterate from observations to corrective operations until checks pass. Select on a request about these mechanisms, not unrelated registry exploration. Read the detailed co-located reference if the acceptance conditions are in scope.
 
-Iterate from observations to corrective operations until checks pass. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Discover exact available tool names and argument contracts using `ALL_TOOLS`.
+2. Validate authorization and user target independently of capability presence.
+3. Execute this skill's specific host recipe from [references/host-recipe.js](./references/host-recipe.js).
+4. Normalize results with status, operation, source and correlation; verify persistent effects by independent read.
+5. Apply all section-specific success and negative conditions before completion.
 
-## Procedure
-
-Parse explicit objective → discover eligible operations → evaluate deterministic policy → dispatch → observe → persist evidence externally.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 137. Observe–evaluate–act–verify cycles
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Implement observe–evaluate–act–verify as four distinct recorded stages, with every action contingent on prior observed evidence.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **observe–evaluate–act–verify cycles**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A repair followed by no verification cannot be considered accepted.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 138. Acceptance-driven iteration
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Compare iterative outcomes against fixed criteria and stop only when every required check is satisfied.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **acceptance-driven iteration**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A loop must not change its own completion predicate mid-run.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 139. Diagnostic feedback processing
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Parse diagnostic records into specific failed gates and map them to targeted corrective operations.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **diagnostic feedback processing**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Generic retry on every error creates non-convergent loops.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 140. Automated corrective actions
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Choose authorized corrective writes from a bounded action table and store pre/post evidence per attempt.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **automated corrective actions**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A speculative fix must not run outside the approved operation set.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 141. Repeated acceptance testing
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Run the same independent acceptance checks after each correction, preserving every failed attempt and the final result.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **repeated acceptance testing**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A later passing check cannot erase earlier failed history.
+
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
 ### 142. Completion criteria
 
-**Operational rule.** Keep policy in an explicit predicate and execution in a temporary module. The model produces intent; the program chooses tool calls; the provenance record captures the observed result for external admission.
+**Mechanism:** Require all frozen acceptance checks, no unresolved in-flight tasks and durable evidence before emitting completed status.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **completion criteria**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An empty check set or missing postcondition cannot satisfy stop criteria.
 
-## Executable operational recipe
+**Acceptance case:** Run an actual instance of the operation and a deliberately failing counterexample, retaining exact operation identity, source and outcome for both.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "self-correcting-loops",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+[Read the skill-local details](./references/details.md) through the installed skill-resource reader.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+Run the matching per-skill fixture and its negative case; record result and preserve the fixed 158-section acceptance contract.
