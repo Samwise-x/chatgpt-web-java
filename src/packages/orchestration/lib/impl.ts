@@ -99,7 +99,9 @@ export async function executeGraph<T>(
     );
     if (!ready.length) throw new Error("Graph has no ready nodes");
     const settled = await Promise.allSettled(
-      ready.map((node) => Promise.resolve().then(() => node.run(new Map(result))))
+      ready.map((node) =>
+        Promise.resolve().then(() => node.run(new Map(result)))
+      )
     );
     const failures: { id: string; reason: unknown }[] = [];
     for (let index = 0; index < ready.length; index++) {
@@ -145,10 +147,18 @@ export function normalizeObservation(input: {
     if (!input[field] || typeof input[field] !== "string")
       throw new Error("Invalid observation field: " + field);
   }
-  if (!["fulfilled", "rejected", "pending", "partial", "skipped"].includes(input.status)) throw new Error("Invalid observation status: " + input.status);
-  if (input.observedAt && Number.isNaN(Date.parse(input.observedAt))) throw new Error("Invalid observation timestamp");
-  if (input.origin && !["live", "synthetic"].includes(input.origin)) throw new Error("Invalid provenance origin");
-  if (input.correlationId !== undefined && !input.correlationId.trim()) throw new Error("Invalid correlation ID");
+  if (
+    !["fulfilled", "rejected", "pending", "partial", "skipped"].includes(
+      input.status
+    )
+  )
+    throw new Error("Invalid observation status: " + input.status);
+  if (input.observedAt && Number.isNaN(Date.parse(input.observedAt)))
+    throw new Error("Invalid observation timestamp");
+  if (input.origin && !["live", "synthetic"].includes(input.origin))
+    throw new Error("Invalid provenance origin");
+  if (input.correlationId !== undefined && !input.correlationId.trim())
+    throw new Error("Invalid correlation ID");
   return {
     id: input.id,
     provider: input.provider,
@@ -181,21 +191,40 @@ export function evaluateGate(checks: Readonly<Record<string, boolean>>): {
   failed: string[];
 } {
   const entries = Object.entries(checks);
-  if (!entries.length) throw new Error("At least one acceptance gate is required");
-  for (const [name, passed] of entries) if (typeof passed !== "boolean") throw new Error("Gate must be boolean: " + name);
+  if (!entries.length)
+    throw new Error("At least one acceptance gate is required");
+  for (const [name, passed] of entries)
+    if (typeof passed !== "boolean")
+      throw new Error("Gate must be boolean: " + name);
   const failed = entries.filter(([, passed]) => !passed).map(([name]) => name);
   return { passed: failed.length === 0, failed };
 }
 
 function equalData(a: unknown, b: unknown): boolean {
   if (Object.is(a, b)) return true;
-  if (a === null || b === null || typeof a !== "object" || typeof b !== "object") return false;
+  if (
+    a === null ||
+    b === null ||
+    typeof a !== "object" ||
+    typeof b !== "object"
+  )
+    return false;
   if (Array.isArray(a) !== Array.isArray(b)) return false;
-  if (Array.isArray(a) && Array.isArray(b)) return a.length === b.length && a.every((value, i) => equalData(value, b[i]));
-  const aa = a as Record<string, unknown>, bb = b as Record<string, unknown>;
+  if (Array.isArray(a) && Array.isArray(b))
+    return (
+      a.length === b.length && a.every((value, i) => equalData(value, b[i]))
+    );
+  const aa = a as Record<string, unknown>,
+    bb = b as Record<string, unknown>;
   const keys = Object.keys(aa);
-  return keys.length === Object.keys(bb).length &&
-    keys.every(key => Object.prototype.hasOwnProperty.call(bb, key) && equalData(aa[key], bb[key]));
+  return (
+    keys.length === Object.keys(bb).length &&
+    keys.every(
+      (key) =>
+        Object.prototype.hasOwnProperty.call(bb, key) &&
+        equalData(aa[key], bb[key])
+    )
+  );
 }
 
 export function reconcile<T>(
@@ -210,9 +239,7 @@ export function reconcile<T>(
   };
   for (const item of desired) {
     if (!current.has(item.id)) result.create.push(item.id);
-    else if (
-      !equalData(current.get(item.id), item.value)
-    )
+    else if (!equalData(current.get(item.id), item.value))
       result.update.push(item.id);
     else result.unchanged.push(item.id);
   }
