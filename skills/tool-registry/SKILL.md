@@ -1,90 +1,75 @@
 ---
 name: tool-registry
-description: Enumerate and classify tools from live advertised metadata. Use when requests involve tool registry architecture, its subtopics, or compositions requiring it.
+description: Enumerate and classify tools from live advertised metadata. Use for tool registry architecture and its named procedures.
 ---
 
 # Tool Registry Architecture
 
-**Domain:** Tool Interface & Discovery · **Sections:** 27–32 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** tool-interface · **Sections:** 27–32.
 
-## Trigger and objective
+## Use this skill
+Enumerate and classify tools from live advertised metadata. When another skill needs this behavior, load only this skill and its co-located references.
 
-Enumerate and classify tools from live advertised metadata. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Enumerate relevant live operation names and inspect complete tool contracts in `ALL_TOOLS`.
+2. Validate account selection, caller scope, input IDs and preconditions before tool invocation.
+3. Follow the specific mechanism below and the executable host recipe in [references/host-recipe.js](./references/host-recipe.js).
+4. Await all required results, evaluate the negative conditions and emit an evidence-backed result with `text()`.
 
-## Procedure
-
-Filter ALL_TOOLS by actual operation names → inspect complete argument descriptions → prepare authorized inputs → execute → normalize exactly the returned shape → report origin.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 27. ALL_TOOLS structure
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Treat ALL_TOOLS entries as metadata containing exact name and descriptive invocation contract, not as the callable function.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **all_tools structure**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A registry descriptor cannot be invoked without resolving tools[name].
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 28. Tool discovery and enumeration
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Filter currently available names by exact namespace or requested capability, preserving an empty result as a supported routing outcome.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **tool discovery and enumeration**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A fabricated operation name must never become an executable plan.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 29. Tool namespaces
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Preserve full tool names such as mcp__GitHub__get_repo and group only on declared delimiters.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **tool namespaces**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Splitting a provider name on single underscores can corrupt operation identity.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 30. Operation descriptions
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Read the full advertised contract before constructing arguments, including scope, required selectors and write effects.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **operation descriptions**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A truncated help string does not establish valid parameters.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 31. Capability inventory generation
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Build a transient inventory indexed by unique exact operation names, recording namespace and contract text for selection.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **capability inventory generation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Duplicate names or missing descriptions must be surfaced.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 32. Registry-driven capability selection
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Filter eligible tool candidates by user objective and authorization policy, never by existence alone.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **registry-driven capability selection**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A delete operation cannot satisfy an inspection-only objective.
 
-## Executable operational recipe
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /GitHub/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "tool-registry",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for this skill's input schema, section-by-section proof requirements, and host/tool integration contract.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has an individual mechanism and negative condition.
+- Execute the specific host recipe with an injected connector adapter in CI; inspect the real contract for live runs.
+- Record actual returned provider/source data when a live tool runs; synthetic mock outcomes remain labeled as fixtures.

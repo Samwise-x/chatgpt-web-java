@@ -1,96 +1,83 @@
 ---
 name: cross-tool-orchestration
-description: Fan out to different tools and join results into a typed evidence bundle. Use when requests involve cross-tool orchestration, its subtopics, or compositions requiring it.
+description: Fan out to different tools and join results into a typed evidence bundle. Use for cross-tool orchestration and its named procedures.
 ---
 
 # Cross-Tool Orchestration
 
-**Domain:** Orchestration & Execution · **Sections:** 44–50 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** orchestration · **Sections:** 44–50.
 
-## Trigger and objective
+## Use this skill
+Fan out to different tools and join results into a typed evidence bundle. When another skill needs this behavior, load only this skill and its co-located references.
 
-Fan out to different tools and join results into a typed evidence bundle. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Enumerate relevant live operation names and inspect complete tool contracts in `ALL_TOOLS`.
+2. Validate account selection, caller scope, input IDs and preconditions before tool invocation.
+3. Follow the specific mechanism below and the executable host recipe in [references/host-recipe.js](./references/host-recipe.js).
+4. Await all required results, evaluate the negative conditions and emit an evidence-backed result with `text()`.
 
-## Procedure
-
-Define graph and acceptance predicate → validate dependencies → launch independent tasks concurrently → await all required results → evaluate policies → verify postconditions.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 44. Single-program multi-tool execution
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Coordinate several authorized tool calls in one JavaScript execution, combining their receipts into one correlated report.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **single-program multi-tool execution**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** The model must not invent intermediate results that the program did not observe.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 45. Service-independent orchestration
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Pass injectable operation functions behind a shared result representation to avoid provider-specific logic in scheduling decisions.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **service-independent orchestration**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A provider's private response key must not be hard-coded into the policy predicate.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 46. Cross-tool data dependencies
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Await upstream resource discovery before passing its returned ID into a dependent operation, retaining the original observation reference.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **cross-tool data dependencies**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A dependent call launched with a guessed ID is invalid.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 47. Coordinating heterogeneous response formats
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Normalize heterogeneous provider envelopes before joining records by explicit source and correlation IDs.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **coordinating heterogeneous response formats**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A source with no stable identifier cannot be silently merged.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 48. Fan-out / fan-in patterns
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Launch independent queries together, await all settled results and aggregate by request ID rather than response completion order.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **fan-out / fan-in patterns**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** One failed service must not erase successful peer observations.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 49. Tool chaining
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Compose dependent tool operations with explicit input-output contracts and verification for every non-idempotent stage.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **tool chaining**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A chain may not silently substitute an invented intermediate resource.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 50. Cross-service result aggregation
 
-**Operational rule.** Encode precedence and result conditions as executable predicates. Track correlation IDs, execute independent operations concurrently, and keep dependent operations sequential. Verify outcomes at the public workflow interface.
+**Mechanism:** Join normalized GitHub, database and deployment records only on declared unique keys, reporting unmatched entries as partial.
 
-**Implementation and validation.** Prefer a dependency-aware runner or bounded pool over model-mediated step-by-step execution. For **cross-service result aggregation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Duplicate correlation keys cannot overwrite each other.
 
-## Executable operational recipe
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "cross-tool-orchestration",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for this skill's input schema, section-by-section proof requirements, and host/tool integration contract.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has an individual mechanism and negative condition.
+- Execute the specific host recipe with an injected connector adapter in CI; inspect the real contract for live runs.
+- Record actual returned provider/source data when a live tool runs; synthetic mock outcomes remain labeled as fixtures.

@@ -1,84 +1,67 @@
 ---
 name: runtime-introspection
-description: Inspect declared tool contracts before constructing requests. Use when requests involve runtime introspection, its subtopics, or compositions requiring it.
+description: Inspect declared tool contracts before constructing requests. Use for runtime introspection and its named procedures.
 ---
 
 # Runtime Introspection
 
-**Domain:** Tool Interface & Discovery · **Sections:** 33–37 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** tool-interface · **Sections:** 33–37.
 
-## Trigger and objective
+## Use this skill
+Inspect declared tool contracts before constructing requests. When another skill needs this behavior, load only this skill and its co-located references.
 
-Inspect declared tool contracts before constructing requests. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Enumerate relevant live operation names and inspect complete tool contracts in `ALL_TOOLS`.
+2. Validate account selection, caller scope, input IDs and preconditions before tool invocation.
+3. Follow the specific mechanism below and the executable host recipe in [references/host-recipe.js](./references/host-recipe.js).
+4. Await all required results, evaluate the negative conditions and emit an evidence-backed result with `text()`.
 
-## Procedure
-
-Filter ALL_TOOLS by actual operation names → inspect complete argument descriptions → prepare authorized inputs → execute → normalize exactly the returned shape → report origin.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 33. Dynamic capability discovery
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Inspect the registry anew for each run instead of relying on historical operation counts or cached provider schemas.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **dynamic capability discovery**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A stale inventory must not be treated as an authoritative current interface.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 34. Tool metadata inspection
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Preserve a selected operation's full description and compare it with actual runtime argument requirements.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **tool metadata inspection**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A help excerpt that drops account selectors cannot justify a write.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 35. Operation signature discovery
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Resolve the exact callable and verify the expected parameter keys using current advertised input contracts.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **operation signature discovery**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Guessing an account_id field when the interface requires link_id fails.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 36. Argument and schema interpretation
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Validate types, mutually exclusive selector groups and target identity before executing the tool function.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **argument and schema interpretation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Passing both repository_id and repository_full_name when exactly one is allowed must reject.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 37. Live capability catalog construction
 
-**Operational rule.** Enumerate actual tool descriptions first, extract the operation contract, verify exact parameter names, and normalize that operation’s return shape only after inspection. An eligible tool is not an implicit authorization.
+**Mechanism:** Construct a namespace-indexed capability catalog from current registry entries and label it as observed-at-this-invocation.
 
-**Implementation and validation.** At runtime, enumerate `ALL_TOOLS` and use only tool names present in the registry. For **live capability catalog construction**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Do not claim catalog continuity across V8 executions.
 
-## Executable operational recipe
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /GitHub/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "runtime-introspection",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for this skill's input schema, section-by-section proof requirements, and host/tool integration contract.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has an individual mechanism and negative condition.
+- Execute the specific host recipe with an injected connector adapter in CI; inspect the real contract for live runs.
+- Record actual returned provider/source data when a live tool runs; synthetic mock outcomes remain labeled as fixtures.

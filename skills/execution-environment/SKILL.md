@@ -1,106 +1,91 @@
 ---
 name: execution-environment
-description: Investigate V8 runtime semantics, isolate behavior, and invocation limits. Use when requests involve javascript execution environment, its subtopics, or compositions requiring it.
+description: Investigate V8 runtime semantics, isolate behavior, and invocation limits. Use for javascript execution environment and its named procedures.
 ---
 
 # JavaScript Execution Environment
 
-**Domain:** Runtime Fundamentals · **Sections:** 1–8 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** runtime · **Sections:** 1–8.
 
-## Trigger and objective
+## Use this skill
+Investigate V8 runtime semantics, isolate behavior, and invocation limits. When another skill needs this behavior, load only this skill and its co-located references.
 
-Investigate V8 runtime semantics, isolate behavior, and invocation limits. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Enumerate relevant live operation names and inspect complete tool contracts in `ALL_TOOLS`.
+2. Validate account selection, caller scope, input IDs and preconditions before tool invocation.
+3. Follow the specific mechanism below and the executable host recipe in [references/host-recipe.js](./references/host-recipe.js).
+4. Await all required results, evaluate the negative conditions and emit an evidence-backed result with `text()`.
 
-## Procedure
-
-Identify the requested runtime property → inspect available globals and documented exclusions → exercise an isolated fixture → emit observed and documented facts separately.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 1. Runtime architecture and execution lifecycle
 
-**Mechanics.** An invocation initializes a fresh isolated JavaScript environment, discovers connected interfaces, performs awaited operations and explicitly emits an output. A second invocation cannot access a variable created by the first.
+**Mechanism:** Initialize a fresh execution controller, validate input and end with an explicit settled result; no interpreter state is carried into the next invocation.
 
-**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+**Negative condition:** Run two invocations and require an external checkpoint for continuity.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 2. V8 execution environment
 
-**Mechanics.** V8 evaluates JavaScript and standard language collections; connected service I/O is mediated through the exposed tools interface rather than unrestricted operating-system access.
+**Mechanism:** Execute ECMAScript inside isolated V8; use host tool functions for remote effects rather than treating the isolate as a terminal.
 
-**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+**Negative condition:** A local filesystem operation attempted inside this isolate must not be described as supported.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 3. ECMAScript module semantics
 
-**Mechanics.** The host evaluates ECMAScript module syntax with top-level declarations and await. Node-specific imports belong in the separate executable fixture environment.
+**Mechanism:** Declare lexical bindings and asynchronous statements at module scope; keep Node package imports in the separate Node test harness.
 
-**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+**Negative condition:** A Node built-in import cannot be assumed available to a host snippet.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 4. Top-level await
 
-**Mechanics.** Await every required tool operation before returning. A dropped promise does not constitute a completed tool call or an accepted result.
+**Mechanism:** Await remote tool promises directly at module scope, collecting actual resolved output before calling text().
 
-**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+**Negative condition:** Returning success before resolution fails the completion predicate.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 5. Execution isolation
 
-**Mechanics.** Temporary maps and closures only survive while their invocation runs. A durable checkpoint must be stored and subsequently read from an explicitly authorized external system.
+**Mechanism:** Model state as invocation-local objects and maps; every new run starts a fresh environment.
 
-**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+**Negative condition:** A counter initialized in one execution cannot be used as durable progress in another.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 6. Invocation boundaries
 
-**Mechanics.** Validate target and authorization before the first side effect and finish with an evidence bundle that includes operation IDs, outcomes and postcondition observations.
+**Mechanism:** Establish validation, dispatch, settlement and emission stages; track inputs and operation IDs within that bounded lifetime.
 
-**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+**Negative condition:** Undeclared pending operations invalidate the completion report.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 7. Available global interfaces
 
-**Mechanics.** Inspect current `ALL_TOOLS` entries, use `tools[exactName]` for connected operations and `text(value)` for output. Unsupported interfaces must be treated as absent.
+**Mechanism:** Use ALL_TOOLS for introspection, tools for registered actions, text for result emission and image for supported image content.
 
-**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+**Negative condition:** An absent helper cannot be substituted with browser APIs.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 8. Runtime capabilities and interface constraints
 
-**Mechanics.** Use built-in Promise, Map, Set, Array and JSON operations; route filesystem and process work to the separate supported execution surface.
+**Mechanism:** Use core JavaScript collections, regex, JSON, functions and Promises; delegate network or filesystem work through authorized tools.
 
-**Acceptance.** Execute a concrete instance, preserve its observed result, and verify a deliberately invalid counterpart rejects. Tests must assert behavior, not the presence of this heading.
+**Negative condition:** Dynamic imports, arbitrary fetch and Node-specific globals are not part of this interface.
 
-## Skill-specific implementation reference
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
-Read [runtime detail](./references/details.md) for independent host-runtime checks and failure demonstrations. The reference is co-located under this installed skill.
-
-## Executable operational recipe
-
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "execution-environment",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for this skill's input schema, section-by-section proof requirements, and host/tool integration contract.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has an individual mechanism and negative condition.
+- Execute the specific host recipe with an injected connector adapter in CI; inspect the real contract for live runs.
+- Record actual returned provider/source data when a live tool runs; synthetic mock outcomes remain labeled as fixtures.

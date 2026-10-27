@@ -1,90 +1,75 @@
 ---
 name: output-observability
-description: Emit compact evidence and human-readable diagnostics. Use when requests involve runtime output & observability, its subtopics, or compositions requiring it.
+description: Emit compact evidence and human-readable diagnostics. Use for runtime output & observability and its named procedures.
 ---
 
 # Runtime Output & Observability
 
-**Domain:** Runtime Fundamentals · **Sections:** 21–26 · **Runtime:** ChatGPT isolated JavaScript orchestrator.
+**Domain:** runtime · **Sections:** 21–26.
 
-## Trigger and objective
+## Use this skill
+Emit compact evidence and human-readable diagnostics. When another skill needs this behavior, load only this skill and its co-located references.
 
-Emit compact evidence and human-readable diagnostics. Select this skill on an explicit request for this capability, or when another skill has a dependency on it. Read only relevant reference files; preserve the user's execution and acceptance contracts.
+## Execution procedure
+1. Enumerate relevant live operation names and inspect complete tool contracts in `ALL_TOOLS`.
+2. Validate account selection, caller scope, input IDs and preconditions before tool invocation.
+3. Follow the specific mechanism below and the executable host recipe in [references/host-recipe.js](./references/host-recipe.js).
+4. Await all required results, evaluate the negative conditions and emit an evidence-backed result with `text()`.
 
-## Procedure
-
-Identify the requested runtime property → inspect available globals and documented exclusions → exercise an isolated fixture → emit observed and documented facts separately.
-
-## Runtime interface
-
-- Tool discovery: `ALL_TOOLS.filter(x => x.name.includes("…"))`.
-- Execution: `await tools[exactAdvertisedName](validatedArgs)`.
-- Parallelism: `Promise.all` or `Promise.allSettled`; normalize by correlation ID.
-- Reporting: `text(structuredResult)`; reserve `image()` for actual image content.
-- Runtime-specific snippets run in the isolated V8 shell; Node examples are separately executable reference fixtures, not copied with imports into that shell.
-
-## Technical reference
+## Section-specific operating rules
 
 ### 21. text() output
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanism:** Use text(value) to output deterministic structured findings and error records, reducing duplicate content first.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **text() output**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A missing emission or a response without source identity fails observability.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 22. image() output
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanism:** Use image(item) only when a supported image item has actually been retrieved or generated.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **image() output**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An ordinary URL string is not by itself a supported image block.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 23. Structured result formatting
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanism:** Define output objects with stable id, operation, status, source and selected values for machine-readable consumers.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **structured result formatting**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Missing correlation data makes downstream joins ambiguous.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 24. Execution diagnostics
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanism:** Record error name, message, origin and failed operation while keeping successful sibling evidence visible.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **execution diagnostics**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** An exception that disappears into a generic success cannot be audited.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 25. Output reduction and selection
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanism:** Reduce returned tool data to fields needed for acceptance while preserving rejected results, sources and exact item IDs.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **output reduction and selection**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** Dropping failures to meet an output budget corrupts the report.
+
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
 ### 26. Execution trace representation
 
-**Operational rule.** Record the exact host-provided interface, describe the lifecycle scope of each value, and compare the observed behavior with a Node 22 fixture. Treat an external receipt as an observation and re-read any claimed resulting state.
+**Mechanism:** Represent trace entries with node IDs, declared dependencies and observed states, preserving source event order separately from presentation order.
 
-**Implementation and validation.** Compare the acceptance observation with a literal expected value, never with an expression that merely restates the implementation. For **execution trace representation**, write down the input, expected observable output, and the exact acceptance predicate before a tool call. See `examples/` for deterministic, executable cases and `tests/` for positive and deliberately failing enforcement checks.
+**Negative condition:** A sorted display order must not be claimed as actual execution order.
 
-## Executable operational recipe
+**Verification:** Execute an input that exercises this rule and a counterexample that must reject. Keep tool identity and source evidence in both outcomes.
 
-```js
-const selected = ALL_TOOLS.filter((x) => /search|fetch|list/i.test(x.name));
-const inventory = selected.map((x) => ({
-  name: x.name,
-  description: x.description.slice(0, 100),
-}));
-text({
-  skill: "output-observability",
-  available: inventory.length,
-  sample: inventory.slice(0, 5),
-});
-```
-
-For functional orchestration rather than discovery, read [workflow patterns](../../references/workflow-patterns.md) in the plugin's root references directory, and execute one of the Node fixture examples under `examples/`.
+## Detailed reference
+Read [references/details.md](./references/details.md) for this skill's input schema, section-by-section proof requirements, and host/tool integration contract.
 
 ## Acceptance
-
-1. Verify applicable section IDs are present in `catalog/sections.json`.
-2. Execute at least one matching Node example and its associated test.
-3. Record the exact observed input, output, and acceptance assertion.
-4. For live tools, inspect the actual tool schema and verify subsequent remote state when claiming a persistent change.
-
-## Related skills
-
-See the plugin index `README.md` to compose adjacent skills in this domain. Cross-domain dependencies use the shared reference files and catalog identifiers.
+- Every numbered section has an individual mechanism and negative condition.
+- Execute the specific host recipe with an injected connector adapter in CI; inspect the real contract for live runs.
+- Record actual returned provider/source data when a live tool runs; synthetic mock outcomes remain labeled as fixtures.
