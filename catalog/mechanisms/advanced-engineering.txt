@@ -1,0 +1,25 @@
+100|Fetch a repository tree and source files through documented GitHub operations, recording target ref and file path.|A default-branch read must not be reported as an arbitrary release ref.
+101|Classify files by validated extension, known syntax mode and generated-code markers before selecting parser techniques.|Binary or generated content must not be sent through an incompatible text parser.
+102|Extract named symbols using a real TypeScript syntax tree when accuracy matters, retaining export kind and source span.|Regex-only lexical matches cannot prove nested or aliased symbol semantics.
+103|Resolve imports and exports across relative and package specifiers, tracking reexports and unresolved paths separately.|An unresolved alias must not be silently treated as a local module.
+104|Build a directed graph of source modules from resolved imports, with cycle detection and provenance on each edge.|A guessed dependency edge is not confirmed by a missing file.
+105|Parse TypeScript or JavaScript through an AST-capable compiler interface before making syntax-level claims.|A comment containing 'export function' cannot count as an exported symbol.
+106|Traverse call references from a selected entry point, distinguishing static direct calls from dynamic dispatch and unresolved targets.|A string matching a function name is not proof of an executable call edge.
+107|Run acceptance tests at the public interface after compiling the fixture, recording complete command, exit status and output.|A test whose module import failed cannot be treated as an application assertion.
+108|Use independent literal expectations, not a duplicate implementation of the algorithm, and include false-case assertions.|Expecting add(a,b) to equal a+b by identical code is tautological.
+109|Test cross-service operations with injected adapters for deterministic CI and separately run authorized live integration checks.|A mock passing is not evidence of a provider write.
+110|Compare actual versus expected normalized data through semantic equality, with explicit handling for partial and rejected results.|JSON property insertion order must not create spurious differences.
+111|Carry regression fixtures that previously failed, require red-before-fix evidence and run again after each correction.|A regression that cannot fail when implementation is mutated is ineffective.
+112|Record test artifacts, input versions, external receipts and postcondition observations in a release evidence manifest.|A count of passed tests without associated revision cannot certify a release.
+113|Contain errors by operation and stage, preserving the failed input and successful sibling results.|An exception handler must not turn a failure into a silent success.
+114|Represent partial execution explicitly with fulfilled, rejected and pending nodes before deciding remediation.|One failed DAG node must not discard a successful sibling write.
+115|Retry only provider-classified transient errors, with bounded attempts and preserved attempt history.|Repeated unauthorized or validation failures must not enter a retry storm.
+116|Use provider idempotency keys or read-before-write guards for retryable mutations and verify resulting uniqueness.|Blind replay of create operations risks duplicate resources.
+117|Persist checkpoints externally with generation/revision identity, never relying on in-memory counters between invocations.|A stale checkpoint must not overwrite a newer committed state.
+118|Produce a recovery ledger with initial failure, attempted correction, external receipt and final postcondition.|A retry attempt without follow-up read cannot count as recovered.
+119|Batch compatible reads where a provider interface explicitly supports it, preserving per-item identities and failures.|A made-up multi-call argument must not be passed to a single-item interface.
+120|Measure throughput and maximum concurrent operations at fixed worker caps while holding workload and acceptance constant.|Improved wall time does not excuse missing results.
+121|Start graph nodes only when dependencies pass, parallelizing ready frontier nodes while bounding work as specified.|A dependent node cannot run when its predecessor rejected.
+122|Remove redundant intermediate payloads before emitting results while preserving provenance, source and error statuses.|Reduced output must not hide rejected operations.
+123|Deduplicate repeated identical reads within the invocation by canonical target and immutable revision identifier.|Reads of changing branches cannot be cached as if immutable without revision checks.
+124|Record dispatch count, elapsed stage time when supported by tools, reduction ratio and accepted-outcome count.|A reported speedup without measured baseline and equivalent output is not evidence.
