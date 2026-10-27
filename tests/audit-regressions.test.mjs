@@ -2,7 +2,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   evaluateGate,
-  reconcile,
   normalizeObservation,
   executeGraph,
 } from "../dist/orchestration/index.js";
@@ -11,14 +10,6 @@ test("empty policy is rejected", () =>
   assert.throws(() => evaluateGate({}), /gate/i));
 test("nonboolean policy is rejected", () =>
   assert.throws(() => evaluateGate({ accept: 99 }), /boolean/i));
-test("object-key order is semantically irrelevant", () =>
-  assert.deepEqual(
-    reconcile(
-      [{ id: "a", value: { a: 1, b: 2 } }],
-      [{ id: "a", value: { b: 2, a: 1 } }]
-    ),
-    { create: [], update: [], unchanged: ["a"] }
-  ));
 test("unknown observation status rejected", () =>
   assert.throws(
     () =>

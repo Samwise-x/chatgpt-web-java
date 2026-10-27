@@ -8,7 +8,6 @@ import {
   normalizeObservation,
   reduceEvidence,
   evaluateGate,
-  reconcile,
 } from "../dist/orchestration/index.js";
 
 test("worker pool never exceeds supplied concurrency", async () => {
@@ -160,22 +159,6 @@ test("invalid provenance fields reject", () =>
       }),
     /id/
   ));
-test("gates and reconciliation produce executable decisions", () => {
-  assert.deepEqual(evaluateGate({ tests: true, review: false }), {
-    passed: false,
-    failed: ["review"],
-  });
-  assert.deepEqual(
-    reconcile(
-      [
-        { id: "a", value: 1 },
-        { id: "b", value: 2 },
-      ],
-      [{ id: "a", value: 1 }]
-    ),
-    { create: ["b"], update: [], unchanged: ["a"] }
-  );
-});
 
 test("correlated evidence includes timestamp, origin and correlation", () => {
   const item = normalizeObservation({

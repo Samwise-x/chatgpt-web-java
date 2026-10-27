@@ -1,6 +1,5 @@
 # ChatGPT Web Java
 
-24 specialized skills | seven technical domains | 158 numbered technical sections | 72 runnable Node examples | one portable plugin.
 
 Source: https://github.com/Samwise-x/chatgpt-web-java
 
@@ -20,7 +19,6 @@ Install the root `plugin.json` package. Select skills by their frontmatter descr
 
 ## Development
 
-`npm install`, then `npm run check`. Run `npm run test:negative` for the deliberately failing enforcement fixtures. Build the installable archive with `npm run package:plugin`; the archive excludes repo-only CI/tests while retaining all skills, references, and examples.
 
 ## Evidence levels
 

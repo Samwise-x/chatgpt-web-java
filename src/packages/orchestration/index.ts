@@ -6,7 +6,6 @@ export {
   normalizeObservation,
   reduceEvidence,
   evaluateGate,
-  reconcile,
 } from "./lib/impl.js";
 export type {
   GraphNode,
